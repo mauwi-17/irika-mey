@@ -177,10 +177,10 @@ export const projects = [
     context: 'A community lost-and-found system for Barangay Sta. Rita, Olongapo City.',
 
     product:
-      'Tugma is a community lost-and-found system. Barangay staff encode reports for residents, and a rule-based similarity matcher connects lost items to found ones. Personal identifiers are only visible to authorized staff.',
+      'Tugma is a community lost-and-found system. Residents report what they lost or found, and barangay staff compare each report against everything on file using a rule-based scoring system, then contact the owner. Names and numbers are only visible to staff.',
     users: [
-      { who: 'Residents', need: 'need a safe way to report and recover lost belongings, especially IDs.' },
-      { who: 'Barangay staff', need: 'need an organized way to encode reports and match items.' },
+      { who: 'Residents', need: 'need a quick, safe way to report a lost or found item without posting their details publicly.' },
+      { who: 'Barangay staff', need: 'need one place to review reports, find likely matches, and verify claims.' },
     ],
     problem:
       'Found items, especially government IDs, are often posted on Facebook to find the owner, exposing personal data without consent (RA 10173). Manual records also make reporting and searching slow.',
@@ -196,21 +196,25 @@ export const projects = [
     painPoints: [],
 
     process: [
-      { title: 'Encode', text: 'Staff encode lost and found reports.' },
-      { title: 'Normalize', text: 'A synonym layer cleans up item descriptions.' },
-      { title: 'Compare', text: 'Rule-based similarity scoring.' },
-      { title: 'Rank', text: 'Results grouped into confidence tiers.' },
-      { title: 'Protect', text: 'Personal identifiers stay private.' },
+      { title: 'Report', text: 'Residents choose “I lost something” or “I found something”.' },
+      { title: 'Describe', text: 'Item type, color, description, place, and date.' },
+      { title: 'Review', text: 'Staff sign in to see all open reports.' },
+      { title: 'Find matches', text: 'Each candidate is scored out of 100.' },
+      { title: 'Confirm', text: 'Staff confirm the match and contact the owner.' },
     ],
 
     features: [
-      { group: 'Similarity matching', items: ['Rule-based, lightweight, and transparent. No AI models needed.'] },
-      { group: 'Synonym normalization', items: ['Handles different words for the same item (e.g. “cellphone” vs “phone”).'] },
-      { group: 'Confidence tiers', items: ['Match results are grouped by how confident the system is.'] },
-      { group: 'Privacy by design', items: ['Personal identifiers are stored for authorized staff only and never displayed publicly.'] },
+      { group: 'Guided reporting', items: ['Separate lost / found paths', 'Five item categories with examples', 'Helper text on every field'] },
+      { group: 'Transparent scoring', items: ['Category 30 · Color 20 · Description 30 · Location 10 · Date 10', 'Only candidates at 50% or higher are shown, with a confidence label'] },
+      { group: 'Staff records', items: ['Live counts: lost, found, matched, claimed, archived', 'Filter, search, and status tracking per report'] },
+      { group: 'Privacy by design', items: ['Names and numbers visible to staff only (RA 10173)', 'Contact details never appear in match results', 'Test mode keeps practice reports apart from real ones'] },
     ],
 
-    accessibility: ['[Add a design or accessibility decision from your concept or logo work.]'],
+    accessibility: [
+      'Every field has a visible label and a helper hint (e.g. “11 digits, starting with 09”), so residents know exactly what to type.',
+      'Item categories are large cards with plain-language examples (“Phone, laptop, charger”) instead of a small dropdown.',
+      'The privacy notice is written in simple words right above the submit button, so people know who can see their details before sending.',
+    ],
 
     learned: '[What you learned creating the design concept and logo for a community system.]',
     nextSteps: ['[An improvement you would add next.]'],

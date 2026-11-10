@@ -1,109 +1,179 @@
-// Tugma in motion: Encode -> Normalize -> Compare -> Rank -> Protect.
-// Shows the rule-based matcher and the privacy-by-design idea with sample reports.
+// Tugma in motion, recreated from the real system's screens:
+// resident reports an item -> describes it (contact info stays private) -> staff review records
+// -> "Find matches" scores candidates -> staff confirm the match.
+// Uses Tugma's own dark teal palette. All names/numbers are SAMPLE data (no real reporters).
 import DemoShell from './DemoShell.jsx';
 import { useStepper } from '../../hooks/useStepper';
 import { Check, Lock } from '../Icons.jsx';
 
 const STEPS = [
-  { label: 'Encode', caption: 'Barangay staff encode lost and found reports on behalf of residents.' },
-  { label: 'Normalize', caption: 'A synonym layer cleans up descriptions, so different words for the same thing still match.' },
-  { label: 'Compare', caption: 'Rule-based similarity scoring compares each field. It is transparent, with no AI model needed.' },
-  { label: 'Rank', caption: 'Matches are grouped into confidence tiers, so staff know which ones to check first.' },
-  { label: 'Protect', caption: 'Personal identifiers are only visible to authorized staff and are never posted publicly.' },
+  { label: 'Report', caption: 'A resident picks "I lost something" or "I found something", then chooses what kind of item it is.' },
+  { label: 'Describe', caption: 'They add the color, description, and place. Their name and number are visible to barangay staff only (Data Privacy Act, RA 10173).' },
+  { label: 'Review', caption: 'Barangay staff sign in to see every report, with live counts of lost, found, matched, and claimed items.' },
+  { label: 'Match', caption: '"Find matches" scores each candidate: category 30, color 20, description 30, location 10, date 10. Only matches at 50% or higher are shown.' },
+  { label: 'Confirm', caption: 'Staff confirm the match and contact the owner. The report moves from Unmatched to Matched.' },
 ];
 
-const LOST = { item: 'Cellphone', color: 'Black', brand: 'Samsung', place: 'Covered ct.' };
-const FOUND = { item: 'Phone', color: 'black', brand: 'SAMSUNG', place: 'Covered court' };
-const NORMAL = { item: 'phone', color: 'black', brand: 'samsung', place: 'covered court' };
-const FIELDS = [
-  { key: 'item', label: 'Item' },
-  { key: 'color', label: 'Color' },
-  { key: 'brand', label: 'Brand' },
-  { key: 'place', label: 'Place' },
+const CATEGORIES = [
+  { name: 'Electronics', hint: 'Phone, laptop, charger' },
+  { name: 'Personal items', hint: 'Wallet, bag, keys' },
+  { name: 'Documents and cards', hint: 'ID, license, ATM card' },
+  { name: 'Clothing and accessories', hint: 'Jewelry, glasses, watch' },
+  { name: 'Others', hint: 'Anything else' },
 ];
 
-function Report({ title, data, normalized, owner, masked }) {
+const SCORES = [
+  { label: 'Category', value: 30, max: 30 },
+  { label: 'Color', value: 20, max: 20 },
+  { label: 'Description', value: 26, max: 30 },
+  { label: 'Location', value: 10, max: 10 },
+  { label: 'Date', value: 10, max: 10 },
+];
+
+function Logo() {
   return (
-    <div className="tg-report">
-      <p className="tg-report__title">{title}</p>
-      <dl>
-        {FIELDS.map((f) => (
-          <div key={f.key}>
-            <dt>{f.label}</dt>
-            <dd className={normalized && data[f.key] !== NORMAL[f.key] ? 'tg-changed' : ''}>
-              {normalized ? NORMAL[f.key] : data[f.key]}
-            </dd>
-          </div>
+    <span className="tg-logo" aria-hidden="true"><i /><i /></span>
+  );
+}
+
+function ReportScreen() {
+  return (
+    <div className="tg-page">
+      <p className="tg-h1">Lost it? Found it? Tell us.</p>
+      <div className="tg-switch">
+        <span className="tg-switch__lost tg-pop"><b><Check /> I lost something</b><small>Staff will look for a match</small></span>
+        <span className="tg-switch__found"><b>I found something</b><small>Help it reach its owner</small></span>
+      </div>
+      <p className="tg-q">What kind of item is it?</p>
+      <ul className="tg-cats">
+        {CATEGORIES.map((c, i) => (
+          <li key={c.name} className={i === 0 ? 'is-picked' : ''} style={{ animationDelay: `${i * 90}ms` }}>
+            <b>{c.name}</b><small>{c.hint}</small>
+          </li>
         ))}
-        {owner && (
-          <div>
-            <dt>Owner</dt>
-            <dd className={masked ? 'tg-masked' : ''}>
-              {masked ? <><Lock /> J*** D*** C***</> : owner}
-            </dd>
-          </div>
-        )}
-      </dl>
+      </ul>
     </div>
   );
 }
 
-function Panel({ step }) {
-  if (step === 0) {
-    return <p className="tg-note tg-type">Staff encoding 2 reports<span className="tg-caret" aria-hidden="true" /></p>;
-  }
-  if (step === 1) {
-    return (
-      <ul className="tg-chips">
-        {['cellphone → phone', 'Samsung → samsung', 'covered ct. → covered court'].map((c, i) => (
-          <li key={c} style={{ animationDelay: `${i * 220}ms` }}>{c}</li>
-        ))}
-      </ul>
-    );
-  }
-  if (step === 2) {
-    return (
-      <div className="tg-compare">
-        <ul>
-          {FIELDS.map((f, i) => (
-            <li key={f.key} style={{ animationDelay: `${i * 200}ms` }}><Check />{f.label} match</li>
-          ))}
-        </ul>
-        <div className="tg-bar"><i style={{ '--w': '92%' }} /></div>
-        <p className="tg-score">Similarity <b>92%</b></p>
-      </div>
-    );
-  }
-  if (step === 3) {
-    return (
-      <ul className="tg-tiers">
-        <li className="is-active"><b>High</b> Very likely the same item</li>
-        <li><b>Medium</b> Worth checking</li>
-        <li><b>Low</b> Probably different</li>
-      </ul>
-    );
-  }
+function DescribeScreen() {
+  const fields = [
+    ['Main color', 'Black'],
+    ['When did you lose it?', 'Nov 10, 2026'],
+    ['Describe the item', 'Samsung with clear case'],
+    ['Where did you lose it?', 'Basketball court'],
+  ];
   return (
-    <p className="tg-note tg-private"><Lock /> Identifiers visible to authorized barangay staff only</p>
+    <div className="tg-page">
+      <div className="tg-form">
+        {fields.map(([label, value], i) => (
+          <label key={label} style={{ animationDelay: `${i * 160}ms` }}>
+            <span>{label}</span><em>{value}</em>
+          </label>
+        ))}
+      </div>
+      <p className="tg-privacy"><Lock /> Only barangay staff can see your name and number, and only to verify claims. They never appear in match results.</p>
+      <span className="tg-submit tg-press"><Check /> Lost report submitted</span>
+    </div>
+  );
+}
+
+function Records({ matched = false }) {
+  return (
+    <div className="tg-page">
+      <div className="tg-records-head">
+        <p className="tg-h2">Reports</p>
+        <span className="tg-signed"><Lock /> Staff signed in</span>
+      </div>
+      <ul className="tg-stats">
+        <li className="s-lost"><b>12</b>Lost, still open</li>
+        <li className="s-found"><b>7</b>Found, still open</li>
+        <li className="s-matched"><b>{matched ? 4 : 3}</b>Matched</li>
+        <li className="s-claimed"><b>14</b>Claimed</li>
+      </ul>
+      <div className="tg-table" role="presentation">
+        <div className="tg-tr is-focus">
+          <span className="tg-no">#95</span>
+          <span className="tg-type">Lost</span>
+          <span className="tg-item"><b>Electronics</b>, Black<small>Samsung with clear case</small></span>
+          <span className={`tg-status ${matched ? 'is-matched tg-pop' : ''}`}>{matched ? <><Check /> Matched</> : 'Unmatched'}</span>
+          {!matched && <span className="tg-find tg-pulse">Find matches</span>}
+        </div>
+        <div className="tg-tr">
+          <span className="tg-no">#94</span>
+          <span className="tg-type">Lost</span>
+          <span className="tg-item"><b>Personal items</b>, Brown<small>Leather wallet with school ID</small></span>
+          <span className="tg-status">Unmatched</span>
+          {!matched && <span className="tg-find">Find matches</span>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MatchModal() {
+  const total = SCORES.reduce((a, s) => a + s.value, 0);
+  return (
+    <div className="tg-modal tg-slide">
+      <p className="tg-h3">Possible matches for #95</p>
+      <p className="tg-sub">Lost: Electronics, Black. Showing candidates scoring 50% or higher.</p>
+      <div className="tg-match">
+        <div className="tg-ring" style={{ '--p': total }}>
+          <svg viewBox="0 0 36 36" aria-hidden="true">
+            <circle cx="18" cy="18" r="15.9" className="tg-ring__bg" />
+            <circle cx="18" cy="18" r="15.9" className="tg-ring__fg" pathLength="100" />
+          </svg>
+          <b>{total}%</b>
+        </div>
+        <div className="tg-match__body">
+          <p className="tg-match__title">Found #47: Electronics, Black <span className="tg-badge">High</span></p>
+          <p className="tg-sub">Covered court · Nov 9, 2026</p>
+          <p className="tg-desc">Samsung na may clear case. May sticker na blue flower sa likod.</p>
+          <ul className="tg-bars">
+            {SCORES.map((s, i) => (
+              <li key={s.label}>
+                <span>{s.label}</span>
+                <i><em style={{ '--w': `${(s.value / s.max) * 100}%`, animationDelay: `${300 + i * 120}ms` }} /></i>
+                <span>{s.value}/{s.max}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="tg-contact"><Lock /> J. Dela Cruz · 09•• ••• ••89 <small>(staff only)</small></p>
+          <span className="tg-confirm tg-pulse">Confirm match</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Screen({ step }) {
+  if (step === 0) return <ReportScreen />;
+  if (step === 1) return <DescribeScreen />;
+  if (step === 2) return <Records />;
+  if (step === 3) return <MatchModal />;
+  return (
+    <div className="tg-stack">
+      <p className="tg-toast tg-slide"><Check /> Match confirmed: Lost #95 ↔ Found #47. Staff will contact the owner.</p>
+      <Records matched />
+    </div>
   );
 }
 
 export default function TugmaDemo() {
-  const stepper = useStepper(STEPS.length);
+  const stepper = useStepper(STEPS.length, 3600);
   const { step } = stepper;
+  const staff = step >= 2;
   return (
-    <DemoShell title="Matching a lost phone with Tugma" steps={STEPS} stepper={stepper}>
+    <DemoShell title="Reporting and matching a lost phone on Tugma" steps={STEPS} stepper={stepper}>
       <div className="mock-window tg">
-        <div className="mock-window__bar"><i /><i /><i /><span>tugma · barangay sta. rita</span></div>
-        <div className="tg__body">
-          <div className="tg-reports">
-            <Report title="Lost report" data={LOST} normalized={step >= 1}
-              owner="Juan Dela Cruz" masked={step === 4} />
-            <span className={`tg-link ${step >= 2 ? 'is-on' : ''}`} aria-hidden="true">⟷</span>
-            <Report title="Found report" data={FOUND} normalized={step >= 1} />
-          </div>
-          <div className="tg__panel" key={step}><Panel step={step} /></div>
+        <div className="tg-nav">
+          <span className="tg-brand"><Logo /><span><b>Tugma</b><small>Barangay Sta. Rita lost and found</small></span></span>
+          <span className="tg-tabs">
+            <span className={!staff ? 'is-on' : ''}>Report an item</span>
+            <span className={staff ? 'is-on' : ''}>Records</span>
+          </span>
         </div>
+        <div className="tg__body" key={step}><Screen step={step} /></div>
       </div>
     </DemoShell>
   );
