@@ -195,15 +195,21 @@ export default function TugmaDemo() {
   const staff = step >= 2;
   return (
     <DemoShell title="Reporting and matching a lost phone on Tugma" steps={STEPS} stepper={stepper}>
-      <div className="mock-window tg">
-        <div className="tg-nav">
-          <span className="tg-brand"><Logo /><span><b>Tugma</b><small>Barangay Sta. Rita lost and found</small></span></span>
-          <span className="tg-tabs">
-            <span className={!staff ? 'is-on' : ''}>Report an item</span>
-            <span className={staff ? 'is-on' : ''}>Records</span>
-          </span>
+      {/* Shown in a phone, since residents usually report lost items from their phones */}
+      <div className="ww-stage">
+        <div className="phone phone--tg">
+          <div className="phone__notch" aria-hidden="true" />
+          <div className="tg tg--phone">
+            <div className="tg-nav">
+              <span className="tg-brand"><Logo /><span><b>Tugma</b><small>Barangay Sta. Rita lost and found</small></span></span>
+              <span className="tg-tabs">
+                <span className={!staff ? 'is-on' : ''}>Report</span>
+                <span className={staff ? 'is-on' : ''}>Records</span>
+              </span>
+            </div>
+            <div className="tg__body" key={step}><Screen step={step} /></div>
+          </div>
         </div>
-        <div className="tg__body" key={step}><Screen step={step} /></div>
       </div>
     </DemoShell>
   );

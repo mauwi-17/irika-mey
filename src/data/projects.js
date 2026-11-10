@@ -12,6 +12,7 @@ export const projects = [
     featured: true,
     kind: 'Software Engineering · Team project',
     demo: 'askademic',
+    icon: 'bubble',
     tagline: 'Real-time faculty consultation booking for students and instructors.',
     summary:
       'Students see live faculty availability and book consultations instantly. No more chasing instructors through chats and hallways.',
@@ -101,6 +102,7 @@ export const projects = [
     featured: false,
     kind: 'Individual project',
     demo: 'wearwhat',
+    icon: 'hanger',
     tagline: 'Your AI-powered personal stylist.',
     summary:
       'Digitizes your wardrobe and recommends outfits based on the weather, your preferences, and color harmony.',
@@ -163,6 +165,7 @@ export const projects = [
     featured: false,
     kind: 'Team project',
     demo: 'tugma',
+    icon: 'puzzle',
     tagline: 'Privacy-first lost-and-found matching for the barangay.',
     summary:
       'Matches lost items with found ones using a transparent, rule-based approach, without posting anyone’s personal information online.',

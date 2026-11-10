@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Sparkle } from './Icons.jsx';
+import ChromeIcon from './ChromeIcon.jsx';
 
 // The whole card is one link (bigger tap target), with a clear "View case study" label inside it.
 export default function ProjectCard({ project, featured = false }) {
@@ -9,8 +10,8 @@ export default function ProjectCard({ project, featured = false }) {
       <div className="project-card__visual" aria-hidden="true">
         <span className="label">System / {p.index}</span>
         <span className="project-card__num">{p.index}</span>
-        <span className="orb" />
         <span className="ring" />
+        <ChromeIcon kind={p.icon} />
         <Sparkle className="project-card__star" />
         <span className="project-card__wordmark chrome-text">{p.title}</span>
       </div>
