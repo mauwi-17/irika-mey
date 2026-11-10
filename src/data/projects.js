@@ -9,7 +9,6 @@ export const projects = [
     slug: 'askademic',
     index: '01',
     title: 'Askademic',
-    formerly: 'FACS',
     featured: true,
     kind: 'Software Engineering · Team project',
     demo: 'askademic',
@@ -20,7 +19,7 @@ export const projects = [
     meta: {
       role: 'Architecture & Design Lead',
       team: 'Team project · Ctrl Alt Elite',
-      duration: '[Month Year – Month Year]',
+      duration: 'Mar 2026 – Present (in progress)',
       platform: 'Web app',
     },
     stack: ['[Frontend]', '[Backend]', '[Database]'],
@@ -28,7 +27,7 @@ export const projects = [
       'Our Software Engineering project, also written up as a concept note for the Philippine Startup Challenge XI under team Ctrl Alt Elite (CAE).',
 
     product:
-      'Askademic (formerly FACS: Faculty Appointment & Consultation System) is a web-based consultation platform. Students browse a live board of faculty availability and request slots in real time, while faculty approve or decline requests without double-booking.',
+      'Askademic is a web-based consultation platform. Students browse a live board of faculty availability and request slots in real time, while faculty approve or decline requests without double-booking.',
     users: [
       { who: 'Students', need: 'need a quick, reliable way to know when an instructor is free and to book time with them.' },
       { who: 'Faculty', need: 'need to share their availability and manage incoming requests in one organized place.' },
@@ -109,7 +108,7 @@ export const projects = [
     meta: {
       role: 'Full-stack Developer (solo)',
       team: 'Individual project',
-      duration: '[Month Year – Month Year]',
+      duration: 'Apr 2026 – Present (in progress)',
       platform: 'Mobile-first web app',
     },
     stack: ['OpenWeatherMap API', 'K-Means clustering', '[Frontend]', '[Backend]'],
@@ -171,7 +170,7 @@ export const projects = [
     meta: {
       role: 'Design Concept & Logo',
       team: 'Team project',
-      duration: '[Month Year – Month Year]',
+      duration: 'Sep 2026 – Present (in progress)',
       platform: 'Web app',
     },
     stack: ['Rule-based similarity matching', '[Frontend]', '[Backend]'],

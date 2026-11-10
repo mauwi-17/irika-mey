@@ -36,12 +36,11 @@ function Hero() {
           <span className="window__dots" aria-hidden="true"><i /><i /><i /></span>
         </div>
         <div className="window__body">
-          <div className="avatar" aria-hidden={!profile.photo}>
-            {profile.photo
-              ? <img src={profile.photo} alt={`Portrait of ${profile.short}`} />
-              : <span className="chrome-text">EM</span>}
-            <Sparkle className="avatar__star" />
-          </div>
+          <figure className="photo-frame">
+            <img src={profile.photos.hero} alt={`Portrait of ${profile.short} in a white shirt`} width="800" height="800" />
+            <Sparkle className="photo-frame__star" aria-hidden="true" />
+            <figcaption className="photo-frame__tag">{profile.nickname} ✦ {profile.role.split(' & ')[1]}</figcaption>
+          </figure>
           <p className="window__quote">A curious mind, with a soft spot for <em>considerate</em> design.</p>
           <hr />
           <p className="label">Currently</p>
@@ -99,6 +98,13 @@ function About() {
       </Reveal>
 
       <Reveal className="toolkit" delay={120}>
+        <div className="window about__photo">
+          <div className="window__bar">
+            <span>mauwey.jpg</span>
+            <span className="window__dots" aria-hidden="true"><i /><i /><i /></span>
+          </div>
+          <img src={profile.photos.about} alt={`${profile.short} in a grey checkered blouse`} width="800" height="800" loading="lazy" />
+        </div>
         <p className="label label--pink">My toolkit</p>
         {profile.toolkit.map((g) => (
           <div key={g.group} className="toolkit__group">

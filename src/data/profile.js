@@ -1,5 +1,7 @@
 // All personal content lives here so the components stay reusable.
 // Edit this file to update text on the site — no need to touch the components.
+import photoHero from '../assets/me-pose.jpg';
+import photoAbout from '../assets/me-plaid.jpg';
 
 export const profile = {
   name: 'Erica Mae D. Camintoy',
@@ -11,8 +13,7 @@ export const profile = {
   location: 'Olongapo City, PH',
   tagline:
     'Full-stack developer and UI/UX designer building considerate, accessible interfaces.',
-  // Set to an imported image (e.g. import me from '../assets/me.jpg') once you have a photo.
-  photo: null,
+  photos: { hero: photoHero, about: photoAbout },
 
   bio: [
     "I'm a 3rd-year BS Computer Science student at Gordon College in Olongapo City, working as a full-stack developer with a heart for frontend and UI/UX design.",
