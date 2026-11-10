@@ -1,0 +1,8 @@
+# Single-page app routing for Apache hosts (e.g. Hostinger):
+# send every URL that isn't a real file to index.html so React Router can handle it.
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
