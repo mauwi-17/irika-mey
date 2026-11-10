@@ -721,6 +721,14 @@ main:focus { outline: none; }
 .tg-bars em { display: block; height: 100%; width: var(--w); background: #3fbf86; animation: fill 0.9s var(--ease) both; }
 .tg-contact { display: flex; align-items: center; gap: 6px; margin-top: 4px; padding: 8px 10px; border-radius: 8px; background: var(--tg-surface); font-size: 0.8rem; }
 .tg-contact small { color: var(--tg-muted); }
+.tg-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; }
+.tg-pair > div { display: grid; gap: 4px; padding: 10px 12px; border-radius: 10px; background: var(--tg-bg); }
+.tg-type--found { background: var(--tg-green); color: var(--tg-green-text); }
+.tg-form--one { grid-template-columns: 1fr; margin-top: 6px; }
+.tg-warn { padding: 8px 12px; border-radius: 8px; background: #4a3612; color: #f3c46b; font-size: 0.8rem; }
+.tg-modal__actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+.tg-cancel { padding: 8px 14px; border-radius: 8px; border: 1px solid var(--tg-line); color: #8fd0ef; font-weight: 700; font-size: 0.82rem; }
+.tg-claim { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 8px; background: #2f8a6a; color: #fff; font-weight: 700; font-size: 0.82rem; }
 .tg-stack { display: grid; gap: 12px; max-width: 600px; margin-inline: auto; }
 .tg-toast { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px; background: #1f5a41; color: #d8f7e7; font-weight: 600; font-size: 0.85rem; }
 
@@ -744,10 +752,11 @@ main:focus { outline: none; }
   .work-grid, .cs-grid--2 { grid-template-columns: 1fr; }
   .flow__step::after { display: none; }
   /* Tugma mock on phones: stack forms, hide less important table columns */
-  .tg-form, .tg-bars { grid-template-columns: 1fr; }
+  .tg-form, .tg-bars, .tg-pair { grid-template-columns: 1fr; }
   .tg-stats { grid-template-columns: repeat(2, 1fr); }
   .tg-tr { grid-template-columns: 36px 1fr auto; }
   .tg-type, .tg-find { display: none; }
+  .tg-pair .tg-type { display: inline-block; }
   .tg-tr.is-focus .tg-find { display: inline-block; grid-column: 2 / -1; justify-self: start; }
   .tg-nav small, .tg-switch small { display: none; }
   .tg-nav { padding: 10px 12px; }

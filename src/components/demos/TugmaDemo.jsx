@@ -12,6 +12,7 @@ const STEPS = [
   { label: 'Review', caption: 'Barangay staff sign in to see every report, with live counts of lost, found, matched, and claimed items.' },
   { label: 'Match', caption: '"Find matches" scores each candidate: category 30, color 20, description 30, location 10, date 10. Only matches at 50% or higher are shown.' },
   { label: 'Confirm', caption: 'Staff confirm the match and contact the owner. The report moves from Unmatched to Matched.' },
+  { label: 'Claim', caption: 'When the owner comes, staff check that they are the real owner and mark the item as claimed. Both reports are then locked so they cannot be changed or deleted.' },
 ];
 
 const CATEGORIES = [
@@ -146,11 +147,40 @@ function MatchModal() {
   );
 }
 
+function ClaimModal() {
+  return (
+    <div className="tg-modal tg-slide">
+      <p className="tg-h3">Mark as claimed?</p>
+      <p className="tg-sub">Check that the person is the real owner before you confirm.</p>
+      <div className="tg-pair">
+        <div>
+          <p><span className="tg-type">Lost</span> <b>#95 Electronics, Black</b></p>
+          <p className="tg-sub">Samsung with clear case · Basketball court · Nov 10</p>
+        </div>
+        <div>
+          <p><span className="tg-type tg-type--found">Found</span> <b>#47 Electronics, Black</b></p>
+          <p className="tg-sub">Samsung na may clear case · Covered court · Nov 9</p>
+        </div>
+      </div>
+      <div className="tg-form tg-form--one">
+        <label><span>Claimed by (full name)</span><em>Juan Dela Cruz</em></label>
+        <label style={{ animationDelay: '200ms' }}><span>Note (optional)</span><em>Showed a school ID</em></label>
+      </div>
+      <p className="tg-warn">Once confirmed, both reports are locked. Their status cannot be changed or deleted.</p>
+      <div className="tg-modal__actions">
+        <span className="tg-cancel">Cancel</span>
+        <span className="tg-claim tg-press"><Lock /> Confirm claimed</span>
+      </div>
+    </div>
+  );
+}
+
 function Screen({ step }) {
   if (step === 0) return <ReportScreen />;
   if (step === 1) return <DescribeScreen />;
   if (step === 2) return <Records />;
   if (step === 3) return <MatchModal />;
+  if (step === 5) return <ClaimModal />;
   return (
     <div className="tg-stack">
       <p className="tg-toast tg-slide"><Check /> Match confirmed: Lost #95 ↔ Found #47. Staff will contact the owner.</p>

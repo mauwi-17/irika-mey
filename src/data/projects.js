@@ -201,12 +201,14 @@ export const projects = [
       { title: 'Review', text: 'Staff sign in to see all open reports.' },
       { title: 'Find matches', text: 'Each candidate is scored out of 100.' },
       { title: 'Confirm', text: 'Staff confirm the match and contact the owner.' },
+      { title: 'Claim', text: 'Owner verified, item marked claimed, both reports locked.' },
     ],
 
     features: [
       { group: 'Guided reporting', items: ['Separate lost / found paths', 'Five item categories with examples', 'Helper text on every field'] },
       { group: 'Transparent scoring', items: ['Category 30 · Color 20 · Description 30 · Location 10 · Date 10', 'Only candidates at 50% or higher are shown, with a confidence label'] },
       { group: 'Staff records', items: ['Live counts: lost, found, matched, claimed, archived', 'Filter, search, and status tracking per report'] },
+      { group: 'Verified claims', items: ['Staff record who claimed the item, with an optional note (e.g. showed a school ID)', 'Once claimed, both reports are locked and cannot be changed or deleted'] },
       { group: 'Privacy by design', items: ['Names and numbers visible to staff only (RA 10173)', 'Contact details never appear in match results', 'Test mode keeps practice reports apart from real ones'] },
     ],
 
