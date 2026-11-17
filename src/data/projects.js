@@ -213,7 +213,86 @@ export const projects = [
       responsibilities: ['UI/UX design', 'Frontend', 'Backend', 'Recommendation algorithm', 'API integration'],
     },
 
-    painPoints: [],
+    research:
+      'Before building, I researched how people decide what to wear, why so many clothes go unworn, and how this connects to textile waste and UN SDG 12 (Responsible Consumption). I also looked at how existing outfit apps work, which shaped WearWhat’s focus: use the clothes you already own, styled for today’s weather.',
+
+    painPoints: [
+      {
+        title: 'Decision fatigue every morning',
+        text: 'Choosing an outfit takes time, especially when you’re in a rush. WearWhat turns it into three taps: pick an occasion, generate, wear.',
+      },
+      {
+        title: 'Forgotten clothes',
+        text: 'It’s easy to forget what’s in your closet, so the same few pieces get worn while others are ignored. A digital wardrobe keeps every item visible and in the mix.',
+      },
+      {
+        title: 'Dressing for the wrong weather',
+        text: 'Philippine weather can be very hot or suddenly rainy. Live weather data makes each suggestion fit the day.',
+      },
+      {
+        title: 'Buying more than we need',
+        text: 'When outfits feel repetitive, people buy new clothes, which adds to textile waste. Fresh combinations from your own wardrobe help you wear more of what you already own.',
+      },
+    ],
+
+    personas: [
+      {
+        name: 'Bea',
+        age: 21,
+        occupation: 'College student',
+        hometown: 'Olongapo City',
+        quote: 'I have so many clothes but nothing to wear.',
+        statement:
+          'Bea is a college student who needs to put together outfits quickly because her mornings are rushed and she keeps wearing the same few pieces.',
+        goal: 'Look put-together for class and events without spending time deciding.',
+        frustration: 'She forgets what she owns and often ends up overheated or caught in the rain.',
+      },
+      {
+        name: 'Paolo',
+        age: 26,
+        occupation: 'Young professional',
+        hometown: 'Subic',
+        quote: 'Is this okay for tonight?',
+        statement:
+          'Paolo is a young professional who needs outfit ideas for different occasions because he isn’t confident about matching colors.',
+        goal: 'Dress right for work, dates, and the gym using clothes he already has.',
+        frustration: 'He’s unsure which colors go together, so he buys new clothes instead of trying new combinations.',
+      },
+    ],
+
+    journeys: [
+      {
+        tab: 'User: get dressed with WearWhat',
+        persona: 'Bea, getting ready for a date night',
+        goal: 'Find a good outfit fast from her own closet.',
+        steps: [
+          { title: 'Add clothes', feeling: 'Curious', mood: 3.2, opportunity: 'Color detection and background removal happen automatically.' },
+          { title: 'Pick an occasion', feeling: 'Undecided', mood: 2.6, opportunity: 'Five big occasion buttons with labels.' },
+          { title: 'Generate outfits', feeling: 'Hopeful', mood: 3.6, opportunity: 'Scored by color harmony, today’s weather, and her favorites.' },
+          { title: 'Pick the best', feeling: 'Confident', mood: 4.3, opportunity: 'Each option shows a clear percentage; the highest is marked.' },
+          { title: 'Wear it', feeling: 'Satisfied', mood: 4.7, opportunity: 'Saved to history, so tomorrow’s picks stay fresh.' },
+        ],
+      },
+    ],
+
+    usability: {
+      intro:
+        'WearWhat was evaluated at the project defense, and I also shared it with fellow students so they could try it on their own phones.',
+      rounds: [
+        {
+          title: 'Project defense',
+          findings: [
+            { title: 'Fully accepted and approved.', text: 'The panel reviewed the system during the defense, and it was fully accepted and approved.' },
+          ],
+        },
+        {
+          title: 'Shared with fellow students',
+          findings: [
+            { title: 'Tried on real wardrobes.', text: 'Classmates used it on their own phones, uploading their own clothes and generating outfits.' },
+          ],
+        },
+      ],
+    },
 
     process: [
       { title: 'Add clothing', text: 'Upload → detect color → remove background → save to wardrobe.' },
@@ -238,8 +317,14 @@ export const projects = [
       'The compatibility score is shown as a clear number, so it does not rely on color or charts alone.',
     ],
 
-    learned: '[What you learned building a full system on your own.]',
-    nextSteps: ['[An improvement you would add next.]'],
+    impact:
+      'WearWhat was fully accepted and approved at the project defense, and fellow students have tried it with their own wardrobes, getting more use out of clothes they already own.',
+    learned:
+      'Building WearWhat alone taught me to own every layer of a system: the design, the frontend, the backend, and the logic that ties them together. Turning “what looks good” into a 40/30/30 weighted score showed me how to translate a fuzzy human decision into rules a computer can follow. Most of all, I learned to keep the experience simple: the hard work (color detection, background removal, weather) happens in the background, so the user only has to pick an occasion and wear.',
+    nextSteps: [
+      'Plan ahead: suggest outfits for the week using the weather forecast, not just today’s.',
+      'Rediscover unworn clothes: highlight pieces that haven’t been worn in a while to support SDG 12.',
+    ],
   },
 
   {

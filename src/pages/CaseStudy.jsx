@@ -142,7 +142,10 @@ export default function CaseStudy() {
 
         {p.journeys && (
           <Block id="journeys" num={`${num()} / Understanding the user`} title="User journey maps">
-            <p className="cs-muted">One journey for each side of the booking. The curve is a rough guess of how the person feels at each step, and the last line of each step is the opportunity we turned into a feature.</p>
+            <p className="cs-muted">
+              {p.journeys.length > 1 ? 'One journey for each type of user. ' : ''}
+              The curve is a rough guess of how the person feels at each step, and the last line of each step is the opportunity that became a feature.
+            </p>
             <JourneyMaps journeys={p.journeys} />
           </Block>
         )}
