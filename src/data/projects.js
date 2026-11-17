@@ -19,7 +19,7 @@ export const projects = [
     live: 'https://askademic1.vercel.app/',
     meta: {
       role: 'Architecture & Design Lead',
-      team: 'Team project · Ctrl Alt Elite',
+      team: 'Team project (Ctrl Alt Elite)',
       duration: 'Feb 2026 – Nov 2026',
       platform: 'Web app',
     },
