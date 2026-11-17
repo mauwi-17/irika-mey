@@ -1,18 +1,18 @@
-// WearWhat in motion, recreated from the real app's screens:
-// Home (weather + Generate Outfit) -> pick an occasion -> outfits are scored
-// -> compare two outfits with a compatibility score -> wear it (saved to history).
+// WearWhat in motion, recreated from the real app's flow:
+//   Add clothing: upload -> detect color -> remove background -> save to wardrobe
+//   Get dressed:  pick occasion -> generate pairs (color, weather, preference)
+//                 -> pick the highest % -> wear it, done.
 // Clothes are drawn as simple SVG shapes instead of real wardrobe photos.
 import DemoShell from './DemoShell.jsx';
 import { useStepper } from '../../hooks/useStepper';
 import { Check, Heart } from '../Icons.jsx';
 
 const STEPS = [
-  { label: 'Add clothing', caption: 'Upload a photo or take one. The background is removed and the color is detected automatically. Then tag the type and every occasion it fits.' },
-  { label: 'Home', caption: 'The home screen shows today’s live weather and one big “Generate Outfit” button.' },
-  { label: 'Occasion', caption: 'Pick an occasion. Only clothes tagged for it (casual, formal, date, party, sport) are used.' },
-  { label: 'Generate', caption: 'Each combination is scored: 40% weather fit, 30% your preferences (hearted pieces), 30% color harmony.' },
-  { label: 'Compare', caption: 'Two outfits appear side by side. Each item is listed with its category and color, plus a compatibility score.' },
-  { label: 'Wear it', caption: 'Tap “Wear this outfit” and it’s saved to your history as your last outfit.' },
+  { label: 'Add clothing', caption: 'Upload a photo of a clothing item. WearWhat detects its color, removes the background, then saves it to your wardrobe with its type and occasions.' },
+  { label: 'Occasion', caption: 'To get dressed, pick an occasion: casual, formal, date, party, or sport.' },
+  { label: 'Generate', caption: 'WearWhat generates recommended pairs, scored by color harmony (30%), today’s weather (40%), and your preferences (30%).' },
+  { label: 'Pick the best', caption: 'Recommendations are ranked by percentage. Pick the highest one, 86% here.' },
+  { label: 'Wear it', caption: 'Tap “Wear this outfit” and you’re done. It’s saved to your history.' },
 ];
 
 /* ---- simple clothing shapes ---- */
@@ -61,23 +61,6 @@ function Header({ title, back }) {
   );
 }
 
-function HomeScreen() {
-  return (
-    <>
-      <p className="wr-title">Irika Mey.</p>
-      <p className="wr-date">Monday, November 16</p>
-      <div className="wr-weather"><span className="wr-cloud" aria-hidden="true" /><div><b>31°C · Overcast</b><small>Mild day: layer up if needed.</small></div></div>
-      <div className="wr-generate wr-pulse"><span className="wr-spark" aria-hidden="true">✦</span><div><b>Generate outfit</b><small>AI-powered for today’s weather</small></div><span aria-hidden="true">›</span></div>
-      <p className="wr-label">Last outfit</p>
-      <div className="wr-card wr-last">
-        <b>Date Night Wednesday</b>
-        <div className="wr-row">{OUTFIT_B.map((p) => <Piece key={p.shape} {...p} />)}</div>
-      </div>
-      <p className="wr-sdg">SDG 12: Wear more of what you own and reduce textile waste.</p>
-    </>
-  );
-}
-
 function OccasionScreen() {
   return (
     <>
@@ -92,7 +75,7 @@ function OccasionScreen() {
 }
 
 function AddScreen() {
-  const stages = ['Upload', 'Remove BG', 'Detect color', 'Saving'];
+  const stages = ['Upload', 'Detect color', 'Remove BG', 'Save'];
   const types = ['Tops', 'Bottoms', 'Shoes', 'Outerwear', 'Dress', 'Accessories'];
   const occasions = ['Casual', 'Formal', 'Date Night', 'Party', 'Sports'];
   const picked = ['Formal', 'Date Night', 'Party'];
@@ -123,16 +106,16 @@ function AddScreen() {
 
 function GenerateScreen() {
   const rules = [
+    ['Color harmony', '30%', 'Colors that go well together'],
     ['Weather fit', '40%', 'Suits today’s 31°C, overcast'],
     ['Preference', '30%', 'Your hearted pieces score higher'],
-    ['Color harmony', '30%', 'Colors that go well together'],
   ];
   return (
     <>
       <Header title="What to wear?" back />
       <p className="wr-chip">For <b>Date night</b></p>
-      <p className="wr-filter"><Check /> Only items tagged “Date Night”</p>
-      <p className="wr-label">Scoring outfits…</p>
+      <p className="wr-filter"><Check /> Using items tagged “Date Night”</p>
+      <p className="wr-label">Generating recommended pairs…</p>
       <ul className="wr-rules">
         {rules.map(([t, w, d], i) => (
           <li key={t} style={{ animationDelay: `${i * 450}ms` }}>
@@ -151,10 +134,12 @@ function CompareScreen({ worn = false }) {
       <p className="wr-chip">For <b>Date night</b></p>
       <div className="wr-outfits">
         <div className="wr-outfit is-picked">
+          <span className="wr-pct">86% · Top pick</span>
           <div className="wr-grid">{OUTFIT_A.map((p) => <Piece key={p.shape} {...p} />)}</div>
           <span className="wr-actions"><Heart className={worn ? 'wr-hearted' : ''} /></span>
         </div>
         <div className="wr-outfit">
+          <span className="wr-pct wr-pct--low">74%</span>
           <div className="wr-grid">{OUTFIT_B.map((p) => <Piece key={p.shape} {...p} />)}</div>
           <span className="wr-actions"><Heart /></span>
         </div>
@@ -168,17 +153,16 @@ function CompareScreen({ worn = false }) {
         ))}
       </ul>
       <p className="wr-score">Compatibility score: <em>86%</em></p>
-      <p className={`wr-wear ${worn ? 'is-done wr-press' : ''}`}>{worn ? <><Check /> Saved to history</> : 'Wear this outfit'}</p>
+      <p className={`wr-wear ${worn ? 'is-done wr-press' : ''}`}>{worn ? <><Check /> Done! Saved to history</> : 'Wear this outfit'}</p>
     </>
   );
 }
 
 function Screen({ step }) {
   if (step === 0) return <AddScreen />;
-  if (step === 1) return <HomeScreen />;
-  if (step === 2) return <OccasionScreen />;
-  if (step === 3) return <GenerateScreen />;
-  return <CompareScreen worn={step === 5} />;
+  if (step === 1) return <OccasionScreen />;
+  if (step === 2) return <GenerateScreen />;
+  return <CompareScreen worn={step === 4} />;
 }
 
 export default function WearWhatDemo() {

@@ -136,19 +136,19 @@ export const projects = [
     painPoints: [],
 
     process: [
-      { title: 'Add clothing', text: 'Photo → background removed → color detected → saved.' },
-      { title: 'Check today', text: 'Live weather on the home screen.' },
+      { title: 'Add clothing', text: 'Upload → detect color → remove background → save to wardrobe.' },
       { title: 'Pick occasion', text: 'Casual, formal, date, party, or sport.' },
-      { title: 'Generate', text: 'Outfits scored with a compatibility %.' },
-      { title: 'Wear it!', text: 'Saved to history and last outfit.' },
+      { title: 'Generate', text: 'Recommended pairs by color, weather, and preference.' },
+      { title: 'Pick the best', text: 'Choose the highest-percentage recommendation.' },
+      { title: 'Wear it!', text: 'Done. Saved to your history.' },
     ],
 
     features: [
       { group: 'Weather-smart recommendations', items: ['Outfits are scored on today’s temperature and conditions (OpenWeatherMap API).'] },
       { group: 'Preference-aware styling', items: ['Heart your favorite pieces to see them more often in recommendations.'] },
       { group: 'Occasion-matched outfits', items: ['Only items tagged for the chosen occasion appear: casual, formal, date, party, or sport.'] },
-      { group: 'Recommendation engine', items: ['Weighted scoring: 40% weather fit, 30% preference, 30% color harmony.', 'Each outfit shows a compatibility score (e.g. 86%) to compare options side by side.'] },
-      { group: 'Smart upload', items: ['Gallery or camera upload with automatic background removal.', 'K-Means clustering detects each item’s dominant color.', 'Tag clothing type and every occasion an item fits.'] },
+      { group: 'Recommendation engine', items: ['Weighted scoring: 40% weather fit, 30% preference, 30% color harmony.', 'Recommendations are ranked by compatibility score (e.g. 86%), so you can pick the highest one.'] },
+      { group: 'Smart upload', items: ['Gallery or camera upload.', 'K-Means clustering detects each item’s dominant color, then the background is removed automatically.', 'Tag clothing type and every occasion an item fits.'] },
       { group: 'History & favorites', items: ['Track what you’ve worn and save outfits you love.'] },
     ],
 
