@@ -5,7 +5,7 @@ import NotFound from './NotFound.jsx';
 import TugmaLogo from '../components/TugmaLogo.jsx';
 import { JourneyMaps, Personas, Stats, Usability } from '../components/CaseSections.jsx';
 import { getProject, projects } from '../data/projects.js';
-import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Sparkle } from '../components/Icons.jsx';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Check } from '../components/Icons.jsx';
 import AskademicDemo from '../components/demos/AskademicDemo.jsx';
 import WearWhatDemo from '../components/demos/WearWhatDemo.jsx';
 import TugmaDemo from '../components/demos/TugmaDemo.jsx';
@@ -39,7 +39,7 @@ export default function CaseStudy() {
       <header className="case__hero container">
         <SectionLink id="work" className="back-link"><ArrowLeft /> All work</SectionLink>
         <p className="label">
-          Case study {p.index} <Sparkle className="inline-star" /> {p.featured ? 'Featured · ' : ''}{p.kind}
+          Case study {p.index} <span className="dot" aria-hidden="true" /> {p.featured ? 'Featured · ' : ''}{p.kind}
         </p>
         <h1 className="case__title chrome-text shimmer">{p.title}</h1>
         {p.formerly && <p className="case__formerly">formerly {p.formerly}</p>}
@@ -97,7 +97,6 @@ export default function CaseStudy() {
 
         <Block id="role" num={`${num()} / My role`} title={p.myRole.title}>
           <div className="role-box">
-            <Sparkle className="role-box__star" aria-hidden="true" />
             <p className="role-box__team">{p.meta.team}</p>
             <p className="role-box__text">{p.myRole.contribution}</p>
             <ul className="chips" aria-label="Responsibilities">

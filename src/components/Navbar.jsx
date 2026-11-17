@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import SectionLink from './SectionLink.jsx';
 import { useSettings } from '../settings.jsx';
-import { ArrowUpRight, Close, Menu, Moon, Sparkle, Sun, Waves } from './Icons.jsx';
+import { ArrowUpRight, Close, Menu, Moon, Sun, Waves } from './Icons.jsx';
 
 const LINKS = [
   { id: 'work', label: 'Work' },
@@ -59,8 +59,8 @@ export default function Navbar() {
     <header className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
       <div className="container nav__inner">
         <Link to="/" className="nav__logo" aria-label="Erica Mae Camintoy, home">
-          <span className="chrome-text">mauwey</span>
-          <Sparkle className="nav__logo-star" />
+          <span className="nav__mark" aria-hidden="true">EM</span>
+          <span className="nav__name">Erica Mae</span>
         </Link>
 
         <nav aria-label="Main" className="nav__links">

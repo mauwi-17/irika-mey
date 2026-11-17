@@ -3,13 +3,13 @@ import SectionLink from '../components/SectionLink.jsx';
 import ProjectCard from '../components/ProjectCard.jsx';
 import { profile } from '../data/profile.js';
 import { projects } from '../data/projects.js';
-import { ArrowDown, ArrowUpRight, Mail, Sparkle } from '../components/Icons.jsx';
+import { ArrowDown, ArrowUpRight, Mail } from '../components/Icons.jsx';
 
 function Hero() {
   return (
     <section className="hero container" aria-labelledby="hero-title">
       <div className="hero__copy">
-        <p className="label reveal-now">Personal portfolio <Sparkle className="inline-star" /> Design + Development</p>
+        <p className="label reveal-now">Personal portfolio <span className="dot" aria-hidden="true" /> Design + Development</p>
 
         <h1 id="hero-title" className="hero__title">
           <span className="chrome-text shimmer">Designed with care.</span>
@@ -38,8 +38,7 @@ function Hero() {
         <div className="window__body">
           <figure className="photo-frame">
             <img src={profile.photos.hero} alt={`Portrait of ${profile.short} in a white shirt`} width="800" height="800" />
-            <Sparkle className="photo-frame__star" aria-hidden="true" />
-            <figcaption className="photo-frame__tag">{profile.nickname} ✦ {profile.role.split(' & ')[1]}</figcaption>
+            <figcaption className="photo-frame__tag">{profile.nickname} · {profile.role.split(' & ')[1]}</figcaption>
           </figure>
           <p className="window__quote">A curious mind, with a soft spot for <em>considerate</em> design.</p>
           <hr />
@@ -54,10 +53,10 @@ function Hero() {
 
 // Scrolling ticker of skills. Duplicated once so the loop is seamless; the copy is hidden from screen readers.
 function Ticker() {
-  const words = ['UI/UX Design', 'Full-stack', 'Accessibility', 'Figma', 'React', 'Python', 'System Architecture'];
+  const words = ['UI/UX design', 'Full-stack development', 'Accessibility', 'Figma', 'React', 'Python', 'System architecture', 'Supabase'];
   const row = (hidden) => (
     <ul className="ticker__row" aria-hidden={hidden || undefined}>
-      {words.map((w) => <li key={w}>{w}<Sparkle className="ticker__star" /></li>)}
+      {words.map((w) => <li key={w}>{w}<span className="dot" aria-hidden="true" /></li>)}
     </ul>
   );
   return (
@@ -93,7 +92,7 @@ function About() {
         {profile.bio.map((p) => <p key={p} className="about__p">{p}</p>)}
         <p className="about__p about__p--muted">{profile.offScreen}</p>
         <ul className="chips" aria-label="Interests">
-          {profile.interests.map((i) => <li key={i} className="chip"><Sparkle className="inline-star" />{i}</li>)}
+          {profile.interests.map((i) => <li key={i} className="chip"><span className="dot" aria-hidden="true" />{i}</li>)}
         </ul>
       </Reveal>
 
