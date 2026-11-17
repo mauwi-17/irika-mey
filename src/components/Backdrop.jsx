@@ -1,4 +1,4 @@
-// Decorative background: three slow-drifting aurora glows (#ff206e pink + violet) and film grain.
+// Decorative background: three slow-drifting aurora glows (#f42272 pink + violet) and film grain.
 // aria-hidden because it carries no information for screen readers.
 export default function Backdrop() {
   return (
