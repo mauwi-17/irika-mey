@@ -20,7 +20,7 @@ export const projects = [
     meta: {
       role: 'Architecture & Design Lead',
       team: 'Team project · Ctrl Alt Elite',
-      duration: 'Mar 2026 – Present (in progress)',
+      duration: 'Feb 2026 – Nov 2026',
       platform: 'Web app',
     },
     stack: ['[Frontend]', '[Backend]', '[Database]'],
@@ -28,15 +28,16 @@ export const projects = [
       'Our Software Engineering project, also written up as a concept note for the Philippine Startup Challenge XI under team Ctrl Alt Elite (CAE).',
 
     product:
-      'Askademic is a web-based consultation platform for Gordon College. Students sign in with their school account, check each instructor’s real-time availability in the Faculty Directory, and request a specific date and time slot. Faculty then approve or decline, so every slot belongs to one request.',
+      'Askademic is a web-based consultation system designed for college students to request appointment slots with faculty members. Instructors can approve requests and document the consultation details, while program chairs and department deans can review student feedback and ratings. Overall, the platform streamlines student–instructor communication and improves the consultation experience.',
     users: [
-      { who: 'Students', need: 'need a quick, reliable way to know when an instructor is free and to book time with them.' },
-      { who: 'Faculty', need: 'need to share their availability and manage incoming requests in one organized place.' },
+      { who: 'Students', need: 'need to know when an instructor is really available and book time with a clear purpose.' },
+      { who: 'Instructors', need: 'need quick, recurring availability and a record of every consultation they held.' },
+      { who: 'Program chairs & deans', need: 'need evidence of how consultations go and a fair basis for evaluating instructors.' },
     ],
     problem:
-      'Students have no centralized way to check faculty availability or request consultations. Scheduling happens through messaging apps, email, and walk-ins, which leads to missed appointments, double-bookings, and time wasted waiting outside offices.',
+      'Students can’t tell when an instructor is really available, instructors have no record of consultations that happened or didn’t, and the department has no evidence of how consultations go.',
     goal:
-      'Give students and faculty a single source of truth for consultations: live availability, instant requests, and a clear approval workflow.',
+      'Make booking clear, close every consultation with a recorded outcome, and give the department a fair basis for evaluating instructors.',
 
     myRole: {
       title: 'Architecture & Design Lead',
@@ -45,53 +46,132 @@ export const projects = [
       responsibilities: ['System architecture', 'User roles & flows', 'UI design direction', 'Design guidance for the team'],
     },
 
+    research:
+      'The team assumed our target users were experiencing the problem. To prove it, we ran a survey and interviews with the college’s faculty members and students. The data confirmed our assumption, turning it into a confirmed hypothesis.',
+
     painPoints: [
       {
-        title: 'No visibility',
-        text: "Students can't tell when an instructor is actually free, so they wait outside offices hoping for the best. This led us to a live availability board.",
+        title: 'Unclear availability for students',
+        text: 'Students can’t tell when an instructor is actually free, so they chase them through chat or the faculty room and often find no one there. Every screen now shows real, bookable slots and clear request statuses, so a student never has to guess.',
       },
       {
-        title: 'Scattered channels',
-        text: 'Requests go through personal chats, emails, and walk-ins, so messages get missed or go unanswered for days. One request inbox replaces all of them.',
+        title: 'Part-time instructors can’t maintain a calendar',
+        text: 'Part-timers have little time to update their availability every day, which leaves schedules outdated. Setting availability is quick and recurring by default, with the department’s blocked dates applied automatically, so instructors only handle exceptions.',
       },
       {
-        title: 'Double-bookings',
-        text: 'Two students can unknowingly claim the same time slot. An approve/decline workflow keeps each slot owned by one request.',
+        title: 'No record of whether a consultation happened',
+        text: 'Without an outcome, the department has no evidence of how consultations go, and a no-show looks the same as a held session. Every appointment now ends in a recorded outcome (“Closed · Held” or “Closed · No-show”).',
       },
       {
-        title: 'Sudden changes',
-        text: 'Meetings and events force faculty to move consultations, and students are often not told. Status tracking and notifications keep both sides updated.',
+        title: 'Leaders who are also instructors',
+        text: 'Program chairs and the dean teach too, so one account has to act as both a manager and an instructor without conflicts of interest. A role switcher separates the two views, and ratings of a chair or the dean go to the next level up.',
       },
     ],
 
+    personas: [
+      {
+        name: 'Nilou',
+        age: 23,
+        occupation: 'Graduating college student',
+        hometown: 'Olongapo City',
+        quote: 'Deadline is coming! I badly need to get this done!',
+        statement:
+          'Nilou is a graduating student who needs to have her thesis consulted with her adviser because her final defense is coming up next week and she needs guidance.',
+        goal: 'Have her project consulted with her instructor before the defense.',
+        frustration: 'Not knowing if her adviser is available, so she spends hours waiting outside the faculty room.',
+      },
+      {
+        name: 'Albedo Santos',
+        age: 43,
+        occupation: 'Full-time college instructor',
+        hometown: 'Bataan',
+        statement:
+          'Albedo is a full-time college instructor who needs to meet his students’ expectations in providing support and guidance in the course.',
+        goal: 'Give students prompt academic support without disrupting his daily workflow.',
+        frustration: 'Ad-hoc walk-ins disrupt his day, and he struggles to track requests or tell students about sudden schedule changes.',
+      },
+    ],
+
+    journeys: [
+      {
+        tab: 'Student: get a consultation',
+        persona: 'Mika, a student who needs a consultation',
+        goal: 'Get an appointment and feedback on her project.',
+        steps: [
+          { title: 'Find an instructor and open hours', feeling: 'Confused', mood: 2, opportunity: 'Show the fixed schedule and today’s live status side by side.' },
+          { title: 'Request a slot with a purpose', feeling: 'Nervous', mood: 2.6, opportunity: 'Show seats left and ask for a short purpose.' },
+          { title: 'Wait for approval', feeling: 'Anxious', mood: 2, opportunity: 'Notify on every decision. Expire stale requests so seats free up.' },
+          { title: 'Attend the consultation', feeling: 'Reassured', mood: 4, opportunity: 'Remind before the slot. Show if the instructor is running late.' },
+          { title: 'Rate the consultation', feeling: 'Heard', mood: 4.5, opportunity: 'A familiar paper-style form. Names are never shown to instructors.' },
+        ],
+      },
+      {
+        tab: 'Instructor: run a consultation',
+        persona: 'Mr. Arnie, an instructor who runs consultations',
+        goal: 'Help students without losing track of who came.',
+        steps: [
+          { title: 'Set weekly hours', feeling: 'Organized', mood: 4.5, opportunity: 'Choose own slot length and seats per slot.' },
+          { title: 'Review requests', feeling: 'Pressed', mood: 2.8, opportunity: 'Pending list shows seats held and the purpose up front.' },
+          { title: 'Approve or decline', feeling: 'In control', mood: 4, opportunity: 'Approve up to the seats. The rest are declined automatically.' },
+          { title: 'Hold the consultation', feeling: 'Focused', mood: 4, opportunity: 'Status shows busy, then returns to available.' },
+          { title: 'Record the outcome', feeling: 'Relieved', mood: 3.6, opportunity: 'One short form: held or no-show, resolved, follow-up. No-shows free the slot.' },
+          { title: 'See ratings and remarks', feeling: 'Curious', mood: 3.6, opportunity: 'Scores per criterion. Comments appear only after enough responses.' },
+        ],
+      },
+    ],
+
+    usability: {
+      intro:
+        'We didn’t run lab sessions. Our usability studies were two rounds of review by the people who would judge and use the system: the final defense panel on May 8, 2026, and a follow-up from the faculty representative.',
+      rounds: [
+        {
+          title: 'Round 1 findings',
+          findings: [
+            { title: 'Several students can want the same last slot.', text: 'Students can now request it, and once the instructor approves one, the others are cancelled automatically.' },
+            { title: 'A no-show had no way to end a record.', text: 'Instructors can mark “No-show,” and “Completed” became “Closed” so it matches the remark chosen.' },
+            { title: 'The hierarchy wasn’t clear.', text: 'Program chairs were view-only and the department dean’s role was missing, so we built interfaces for both.' },
+          ],
+        },
+        {
+          title: 'Round 2 findings',
+          findings: [
+            { title: 'Availability should be trackable per day.', text: 'The calendar now works like a familiar month view, with appointment counts per day and long names shortened.' },
+            { title: 'A no-show needs a required note and clearer features.', text: 'The no-show flow is being tightened so the outcome is obvious to everyone.' },
+            { title: 'Records need limits and a way out.', text: 'Chairs and the department dean get Reports, and history limits and export are being finalized.' },
+          ],
+        },
+      ],
+    },
+
     process: [
-      { title: 'Sign in', text: 'Gordon College account, student or faculty role.' },
-      { title: 'Find faculty', text: 'Directory with real-time availability and next schedule.' },
-      { title: 'Pick a slot', text: 'Choose a day and time; slots left are shown.' },
-      { title: 'Add details', text: 'Consultation topic and optional notes.' },
-      { title: 'Submit', text: 'Gets a reference number, pending approval.' },
-      { title: 'Faculty review', text: 'Instructor approves or declines; tracked in My Appointments.' },
+      { title: 'Set hours', text: 'Instructors set recurring weekly hours, slot length, and seats.' },
+      { title: 'Book', text: 'Students pick a date and slot and add a purpose.' },
+      { title: 'Approve', text: 'Instructors approve up to the seats; the rest are declined automatically.' },
+      { title: 'Consult', text: 'Status shows busy, then returns to available.' },
+      { title: 'Record outcome', text: 'Closed · Held or Closed · No-show, with follow-up notes.' },
+      { title: 'Rate & review', text: 'Students rate the session; chairs and the dean review.' },
     ],
 
     features: [
-      { group: 'Availability', items: ['Real-time availability per instructor', 'Next open schedule shown in the directory', 'Booking disabled when no schedule is set'] },
-      { group: 'Booking', items: ['Date picker with slots left per day', 'No-hours and blocked days can’t be picked', 'Topic + optional notes'] },
-      { group: 'Tracking', items: ['Reference number for every request', 'Pending until faculty approval', 'My Appointments page and notifications'] },
-      { group: 'Access', items: ['Gordon College account sign-in', 'Role-based access (student / faculty)'] },
+      { group: 'Availability', items: ['Recurring weekly hours with slot length and seats', 'Department blocked dates applied automatically', 'Real-time status and next open schedule'] },
+      { group: 'Booking', items: ['Date picker with slots left per day', 'Topic + short purpose for every request', 'Reference number; extra requests auto-declined when seats fill'] },
+      { group: 'Outcomes', items: ['Every consultation closes as Held or No-show', 'Follow-up notes recorded by the instructor'] },
+      { group: 'Feedback & oversight', items: ['Students rate sessions; names never shown to instructors', 'Program chair and dean views with Reports', 'Role switcher for leaders who also teach'] },
     ],
 
     accessibility: [
-      'Availability and slot status are written in words (“Available”, “3 left”, “No hours”, “Blocked”), not shown by color alone.',
-      'When an instructor has no schedule, the Book button is greyed out and the card says “No schedule set”, so students know why they can’t book.',
-      'Form fields have visible labels with icons, and the password field has a show/hide toggle to reduce typing mistakes.',
+      'Not color alone: status badges and calendar legends carry words as well as color (Pending, Approved, Closed, Declined, Follow-up), so a color-blind user can still tell them apart.',
+      'Forms that guide: every field has a visible label and an example, the active field gets a clear outline, and the password can be revealed so mistakes are easy to catch.',
+      'Readable and reachable: dark navy text on light surfaces, generous spacing, and big touch targets. On phones, the navigation pairs each icon with a text label.',
     ],
 
+    impact:
+      'Askademic replaces chasing instructors with bookable slots and a recorded outcome for every consultation. Its dashboard already tracks 46 consultation requests across 8 faculty and 5 students, with 14 closed with a recorded outcome.',
     learned:
-      '[What you learned as Architecture & Design Lead, e.g. how planning the structure early made it easier for the team to build in parallel, or how designing for two user roles changed your decisions.]',
+      'Understand how an organization is structured before designing for it. We built an admin because it was a familiar pattern, but the panel’s questions showed that the real structure was a chain of review: instructor, program chair, then department dean.',
     nextSteps: [
-      'Calendar sync so approved consultations appear in faculty and student calendars automatically.',
-      'Push or email reminders before a consultation starts.',
-      '[Another improvement you would add next.]',
+      'Integrate Google Calendar: students and instructors already plan their days there. Syncing approved consultations saves part-time instructors from keeping a second calendar, and answers the faculty representative’s call for a calendar they already know.',
+      'Deploy across the whole campus: every department has the same problem. The system already supports roles, program views, and school-wide closed dates, so it can grow beyond the CCS department.',
     ],
   },
 

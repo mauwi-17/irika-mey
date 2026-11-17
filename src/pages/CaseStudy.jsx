@@ -3,6 +3,7 @@ import Reveal from '../components/Reveal.jsx';
 import SectionLink from '../components/SectionLink.jsx';
 import NotFound from './NotFound.jsx';
 import TugmaLogo from '../components/TugmaLogo.jsx';
+import { JourneyMaps, Personas, Usability } from '../components/CaseSections.jsx';
 import { getProject, projects } from '../data/projects.js';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Sparkle } from '../components/Icons.jsx';
 import AskademicDemo from '../components/demos/AskademicDemo.jsx';
@@ -119,7 +120,8 @@ export default function CaseStudy() {
         </Block>
 
         {p.painPoints.length > 0 && (
-          <Block id="users" num={`${num()} / Understanding the user`} title="Pain points">
+          <Block id="users" num={`${num()} / Understanding the user`} title={p.research ? 'User research & pain points' : 'Pain points'}>
+            {p.research && <p className="cs-lead">{p.research}</p>}
             <ol className="cs-grid cs-grid--2 pain-list">
               {p.painPoints.map((pp, i) => (
                 <li key={pp.title} className="cs-card">
@@ -129,6 +131,25 @@ export default function CaseStudy() {
                 </li>
               ))}
             </ol>
+          </Block>
+        )}
+
+        {p.personas && (
+          <Block id="personas" num={`${num()} / Understanding the user`} title="Personas">
+            <Personas personas={p.personas} />
+          </Block>
+        )}
+
+        {p.journeys && (
+          <Block id="journeys" num={`${num()} / Understanding the user`} title="User journey maps">
+            <p className="cs-muted">One journey for each side of the booking. The curve is a rough guess of how the person feels at each step, and the last line of each step is the opportunity we turned into a feature.</p>
+            <JourneyMaps journeys={p.journeys} />
+          </Block>
+        )}
+
+        {p.usability && (
+          <Block id="usability" num={`${num()} / Starting the design`} title="Usability study findings">
+            <Usability usability={p.usability} />
           </Block>
         )}
 
@@ -162,6 +183,7 @@ export default function CaseStudy() {
         </Block>
 
         <Block id="takeaways" num={`${num()} / Takeaways`} title="Going forward">
+          {p.impact && <div className="cs-card cs-card--goal impact"><p className="label label--pink">Impact</p><p>{p.impact}</p></div>}
           <div className="cs-grid cs-grid--2">
             <div className="cs-card"><p className="label">What I learned</p><p>{p.learned}</p></div>
             <div className="cs-card">
