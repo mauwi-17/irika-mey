@@ -59,7 +59,10 @@ export default function Navbar() {
     <header className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
       <div className="container nav__inner">
         <Link to="/" className="nav__logo" aria-label="Erica Mae Camintoy, home">
-          <span className="nav__mark" aria-hidden="true">EM</span>
+          {/* Logo: my initials "em" written as the HTML <em> tag ("emphasis") */}
+          <span className="nav__mark" aria-hidden="true">
+            <span className="nav__bracket nav__bracket--l">&lt;</span>em<span className="nav__bracket nav__bracket--r">/&gt;</span>
+          </span>
           <span className="nav__name">Erica Mae</span>
         </Link>
 
