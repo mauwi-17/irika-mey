@@ -15,12 +15,12 @@
   --line-strong: rgba(255, 255, 255, 0.22);
   --text: #f6f1f6;
   --muted: #b6abb9;          /* 8.7:1 on --bg, still readable for low vision */
-  --pink: #fe7295;           /* light rose pink, 7.6:1 on --bg */
-  --pink-soft: #ffa3bc;
+  --pink: #ff4598;           /* bright pink, 6.2:1 on --bg */
+  --pink-soft: #ff85b8;
   --violet: #7b3fe4;         /* second aurora color */
   --on-pink: #1a0010;        /* dark text on pink buttons = better contrast than white */
-  --pink-wash: rgba(254, 114, 149, 0.12);
-  --glow: 0 0 24px rgba(254, 114, 149, 0.45);
+  --pink-wash: rgba(255, 69, 152, 0.12);
+  --glow: 0 0 24px rgba(255, 69, 152, 0.45);
   --chrome: linear-gradient(180deg, #ffffff 0%, #ebe7f0 28%, #9a95a8 47%, #f8f6fb 55%, #c6c1d1 76%, #ffffff 100%);
   --orb: radial-gradient(circle at 32% 28%, #fff 0 7%, #ecebf2 13%, #a29eb0 34%, #3a3442 58%, #c9c4d6 80%, #fff 100%);
   --aurora-opacity: 0.55;
@@ -49,12 +49,12 @@
   --line-strong: rgba(60, 16, 40, 0.26);
   --text: #241019;
   --muted: #6b4f5e;
-  --pink: #c93a66;           /* deeper shade of #fe7295 keeps ~4.6:1 contrast on the light background */
-  --pink-soft: #e8668c;
+  --pink: #c4245f;           /* deeper shade of #ff4598 keeps ~5.3:1 contrast on the light background */
+  --pink-soft: #e04f85;
   --violet: #8a5cf0;
   --on-pink: #ffffff;
-  --pink-wash: rgba(201, 58, 102, 0.08);
-  --glow: 0 0 18px rgba(201, 58, 102, 0.25);
+  --pink-wash: rgba(196, 36, 95, 0.08);
+  --glow: 0 0 18px rgba(196, 36, 95, 0.25);
   --chrome: linear-gradient(180deg, #4a2b3d 0%, #8c6077 40%, #2a1622 55%, #7b5068 80%, #3a2030 100%);
   --orb: radial-gradient(circle at 32% 28%, #fff 0 7%, #f5e9f0 14%, #c9a9bb 36%, #7a5a6c 58%, #e8d3df 82%, #fff 100%);
   --aurora-opacity: 0.32;
@@ -289,7 +289,7 @@ main:focus { outline: none; }
 /* Window card, a retro OS motif (also used on the template) */
 .window {
   border: 1px solid var(--line-strong); border-radius: 16px; background: var(--surface);
-  overflow: hidden; box-shadow: 0 30px 80px -30px rgba(254, 114, 149, 0.35);
+  overflow: hidden; box-shadow: 0 30px 80px -30px rgba(255, 69, 152, 0.35);
 }
 .window__bar {
   display: flex; justify-content: space-between; align-items: center;
@@ -308,7 +308,7 @@ main:focus { outline: none; }
 /* Hero photo: soft pink tint + glow ring to fit the Y2K palette without hiding the real photo */
 .photo-frame { position: relative; margin: 0; border-radius: 14px; overflow: hidden; border: 1px solid var(--line-strong); aspect-ratio: 4 / 3.6; }
 .photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transition: transform 0.8s var(--ease); }
-.photo-frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(254, 114, 149, 0.35)); pointer-events: none; }
+.photo-frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(255, 69, 152, 0.35)); pointer-events: none; }
 .hero__window:hover .photo-frame img { transform: scale(1.04); }
 .photo-frame__tag {
   position: absolute; left: 12px; bottom: 12px; z-index: 1; padding: 5px 12px; border-radius: 999px;
@@ -350,7 +350,7 @@ main:focus { outline: none; }
   background: var(--surface); border: 1px solid var(--line);
   transition: transform 0.4s var(--ease), border-color 0.3s, box-shadow 0.4s var(--ease);
 }
-.project-card:hover { transform: translateY(-6px); border-color: color-mix(in srgb, var(--pink) 55%, transparent); box-shadow: 0 24px 60px -24px rgba(254, 114, 149, 0.45); }
+.project-card:hover { transform: translateY(-6px); border-color: color-mix(in srgb, var(--pink) 55%, transparent); box-shadow: 0 24px 60px -24px rgba(255, 69, 152, 0.45); }
 .project-card--featured { grid-template-columns: 1.3fr 1fr; }
 
 .project-card__visual {
@@ -369,7 +369,7 @@ main:focus { outline: none; }
 .chrome-icon {
   position: absolute; width: 40%; max-width: 260px; right: 12%; top: 50%; translate: 0 -50%;
   overflow: visible; transition: transform 0.6s var(--ease);
-  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 18px rgba(254, 114, 149, 0.45));
+  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 18px rgba(255, 69, 152, 0.45));
   animation: float 7s ease-in-out infinite;
 }
 .chrome-icon__q { font-family: var(--font-display); font-weight: 800; font-size: 46px; fill: #3a3442; opacity: 0.85; }
@@ -496,7 +496,7 @@ main:focus { outline: none; }
 .journey__curve { position: relative; height: 150px; margin-bottom: 10px; border-radius: var(--radius-sm); background: linear-gradient(180deg, var(--pink-wash), transparent 50%, rgba(123, 63, 228, 0.07)); }
 .journey__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .journey__mid { stroke: var(--line-strong); stroke-width: 1; stroke-dasharray: 4 6; vector-effect: non-scaling-stroke; }
-.journey__line { fill: none; stroke: var(--pink); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; filter: drop-shadow(0 4px 8px rgba(254, 114, 149, 0.35)); }
+.journey__line { fill: none; stroke: var(--pink); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; filter: drop-shadow(0 4px 8px rgba(255, 69, 152, 0.35)); }
 .journey__axis { position: absolute; left: 12px; z-index: 1; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
 .journey__axis--pos { top: 8px; }
 .journey__axis--neg { bottom: 8px; }
@@ -540,7 +540,7 @@ main:focus { outline: none; }
 .flow__num {
   position: relative; z-index: 1; display: grid; place-items: center; width: 52px; height: 52px; margin-bottom: 10px;
   border-radius: 50%; background: var(--bg); border: 2px solid var(--pink); color: var(--pink);
-  font-weight: 700; font-size: 1rem; box-shadow: 0 0 0 6px var(--bg), 0 0 24px -4px rgba(254, 114, 149, 0.6);
+  font-weight: 700; font-size: 1rem; box-shadow: 0 0 0 6px var(--bg), 0 0 24px -4px rgba(255, 69, 152, 0.6);
   transition: background-color 0.3s, color 0.3s, transform 0.3s var(--ease);
 }
 .flow__step:hover .flow__num { background: var(--pink); color: var(--on-pink); transform: scale(1.08); }
