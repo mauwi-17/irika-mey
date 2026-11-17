@@ -23,7 +23,8 @@ export const projects = [
       duration: 'Feb 2026 – Nov 2026',
       platform: 'Web app',
     },
-    stack: ['[Frontend]', '[Backend]', '[Database]'],
+    // Verified from the live site's build (React bundle, Vite PWA files, Supabase API URL).
+    stack: ['React', 'Vite (installable PWA)', 'React Router', 'Supabase', 'Vercel'],
     context:
       'Our Software Engineering project, also written up as a concept note for the Philippine Startup Challenge XI under team Ctrl Alt Elite (CAE).',
 
@@ -365,7 +366,8 @@ export const projects = [
       duration: 'Sep 2026 – Present (in progress)',
       platform: 'Web app',
     },
-    stack: ['Rule-based similarity matching', '[Frontend]', '[Backend]'],
+    // Verified from the live site: single-page HTML/JS app calling Vercel serverless API routes.
+    stack: ['HTML · CSS · JavaScript', 'Vercel serverless API', 'Rule-based similarity matching', '[Database: confirm with team]'],
     context: 'A community lost-and-found system for Barangay Sta. Rita, Olongapo City.',
 
     product:
