@@ -113,18 +113,19 @@ export const projects = [
       duration: 'Apr 2026 – Present (in progress)',
       platform: 'Mobile-first web app',
     },
-    stack: ['OpenWeatherMap API', 'K-Means clustering', '[Frontend]', '[Backend]'],
-    context: 'A solo project combining my interest in fashion with full-stack development.',
+    stack: ['OpenWeatherMap API', 'K-Means clustering', '[Frontend]', '[Backend]'],    context:
+      'A solo project combining my interest in fashion with full-stack development, aligned with UN SDG 12 (Responsible Consumption).',
 
     product:
-      'WearWhat is a mobile-first app that acts as your personal AI-powered stylist. You upload your clothes, and it recommends outfit combinations tailored to the weather, your preferences, and color-harmony principles.',
+      'WearWhat is a mobile-first app that acts as your personal AI-powered stylist. You add your clothes, pick an occasion, and it generates outfit combinations from your own wardrobe, scored for today’s weather, your favorite pieces, and color harmony.',
     users: [
       { who: 'Everyday dressers', need: 'want to decide what to wear quickly, using clothes they already own.' },
+      { who: 'Conscious shoppers', need: 'want to get more wear out of their closet instead of buying new clothes.' },
     ],
     problem:
-      "[Confirm] Deciding what to wear every day takes time. It's easy to forget what's in your closet or to pick clothes that don't suit the weather.",
+      "Deciding what to wear every day takes time, and many clothes go unworn because it's easy to forget what's in your closet. That leads to buying more and to textile waste.",
     goal:
-      'Make getting dressed effortless by turning your real wardrobe into weather-aware, color-matched outfit suggestions.',
+      'Help people wear more of what they already own (SDG 12) with weather-aware, occasion-matched outfit suggestions from their real wardrobe.',
 
     myRole: {
       title: 'Full-stack Developer',
@@ -135,23 +136,26 @@ export const projects = [
     painPoints: [],
 
     process: [
-      { title: 'Upload clothing', text: 'Photo + AI color detection.' },
-      { title: 'Fetch weather', text: 'OpenWeatherMap API.' },
-      { title: 'AI recommendation', text: 'Weighted scoring algorithm.' },
-      { title: 'Wear it!', text: 'Save favorites & history.' },
+      { title: 'Add clothing', text: 'Photo + automatic color detection.' },
+      { title: 'Check today', text: 'Live weather on the home screen.' },
+      { title: 'Pick occasion', text: 'Casual, formal, date, party, or sport.' },
+      { title: 'Generate', text: 'Outfits scored with a compatibility %.' },
+      { title: 'Wear it!', text: 'Saved to history and last outfit.' },
     ],
 
     features: [
-      { group: 'K-Means color detection', items: ['Clusters pixel data to auto-detect the dominant colors of each uploaded item. No manual input needed.'] },
-      { group: 'Weather-adaptive filtering', items: ['Real-time weather filters outfits by temperature, rain, and conditions automatically.'] },
-      { group: 'Recommendation engine', items: ['Weighted scoring: 40% weather fit, 30% category preference, 30% color harmony.'] },
-      { group: 'Favorites & history', items: ["Save loved outfits and track what you've worn, so the model learns your style over time."] },
-      { group: 'Category-based wardrobe', items: ['Organize by type (tops, bottoms, shoes) and occasion (casual, formal, date, party, sport).'] },
+      { group: 'Weather-smart recommendations', items: ['Outfits are scored on today’s temperature and conditions (OpenWeatherMap API).'] },
+      { group: 'Preference-aware styling', items: ['Heart your favorite pieces to see them more often in recommendations.'] },
+      { group: 'Occasion-matched outfits', items: ['Only items tagged for the chosen occasion appear: casual, formal, date, party, or sport.'] },
+      { group: 'Compatibility score', items: ['Each generated outfit shows a score, e.g. 86%, so you can compare options side by side.'] },
+      { group: 'Color detection', items: ['K-Means clustering finds the dominant color of each uploaded item automatically.'] },
+      { group: 'History & favorites', items: ['Track what you’ve worn and save outfits you love.'] },
     ],
 
     accessibility: [
-      'Detected colors are shown with their names and hex codes, not just as swatches.',
-      '[Add an accessibility decision you made in WearWhat.]',
+      'Every item in an outfit is listed with its category and color in words (e.g. “Top · Gray”), not only as a photo.',
+      'Bottom navigation and occasion buttons pair each icon with a text label.',
+      'The compatibility score is shown as a clear number, so it does not rely on color or charts alone.',
     ],
 
     learned: '[What you learned building a full system on your own.]',

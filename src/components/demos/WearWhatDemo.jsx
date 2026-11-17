@@ -1,124 +1,170 @@
-// WearWhat in motion: Upload -> Weather -> Recommendation -> Wear it, inside a phone frame.
-// Colors follow WearWhat's own green + warm orange brand.
+// WearWhat in motion, recreated from the real app's screens:
+// Home (weather + Generate Outfit) -> pick an occasion -> outfits are scored
+// -> compare two outfits with a compatibility score -> wear it (saved to history).
+// Clothes are drawn as simple SVG shapes instead of real wardrobe photos.
 import DemoShell from './DemoShell.jsx';
 import { useStepper } from '../../hooks/useStepper';
-import { Check, Heart, Sun, Upload } from '../Icons.jsx';
+import { Check, Heart } from '../Icons.jsx';
 
 const STEPS = [
-  { label: 'Upload', caption: 'Snap a photo of a clothing item. K-Means clustering detects its dominant colors automatically.' },
-  { label: 'Weather', caption: 'Live weather from the OpenWeatherMap API filters out anything too warm, too light, or not rain-ready.' },
-  { label: 'Recommend', caption: 'Each outfit is scored: 40% weather fit, 30% category preference, 30% color harmony.' },
-  { label: 'Wear it!', caption: 'Save the outfits you love. Favorites and history help it learn your style over time.' },
+  { label: 'Home', caption: 'The home screen shows today’s live weather and one big “Generate Outfit” button.' },
+  { label: 'Occasion', caption: 'Pick an occasion. Only clothes tagged for it (casual, formal, date, party, sport) are used.' },
+  { label: 'Generate', caption: 'Outfits are scored on today’s weather, the pieces you’ve hearted, and the occasion.' },
+  { label: 'Compare', caption: 'Two outfits appear side by side. Each item is listed with its category and color, plus a compatibility score.' },
+  { label: 'Wear it', caption: 'Tap “Wear this outfit” and it’s saved to your history as your last outfit.' },
 ];
 
-const Shirt = ({ color }) => (
-  <svg viewBox="0 0 40 40" aria-hidden="true"><path fill={color} d="M8 5 16 2q4 5 8 0l8 3 6 8-6 4-2-2v21H10V15l-2 2-6-4Z" /></svg>
-);
-const Pants = ({ color }) => (
-  <svg viewBox="0 0 40 40" aria-hidden="true"><path fill={color} d="M10 2h20l3 36h-9l-4-23-4 23H7Z" /></svg>
-);
-const Shoes = ({ color }) => (
-  <svg viewBox="0 0 40 40" aria-hidden="true"><path fill={color} d="M3 26q0-9 6-9l6 2q6 5 18 7 5 1 5 6v2H3Z" /></svg>
-);
+/* ---- simple clothing shapes ---- */
+const SHAPES = {
+  shirt: 'M8 5 16 2q4 5 8 0l8 3 6 8-6 4-2-2v21H10V15l-2 2-6-4Z',
+  pants: 'M10 2h20l3 36h-9l-4-23-4 23H7Z',
+  shoes: 'M3 26q0-9 6-9l6 2q6 5 18 7 5 1 5 6v2H3Z',
+  hat: 'M6 27q1-15 14-15t14 15h4v4H2v-4Z',
+  cami: 'M13 3v7q-5 4-5 11v15h24V21q0-7-5-11V3l-2 7q-5 3-10 0Z',
+  skirt: 'M13 5h14l9 31H4Z',
+  flats: 'M3 28q1-7 9-7h14q10 0 11 7v3H3Z',
+  bag: 'M7 15h26l3 21H4Z',
+};
+function Piece({ shape, color, bg }) {
+  return (
+    <span className="wr-tile" style={{ background: bg }}>
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        {shape === 'bag' && <path d="M14 15q0-9 6-9t6 9" fill="none" stroke={color} strokeWidth="2.5" />}
+        <path d={SHAPES[shape]} fill={color} />
+      </svg>
+    </span>
+  );
+}
 
-const COLORS = [
-  { name: 'Blush pink', hex: '#E9A6C3' },
-  { name: 'Cream', hex: '#F4E9DC' },
-  { name: 'Berry', hex: '#B5577F' },
+const OUTFIT_A = [
+  { shape: 'shirt', color: '#9aa0aa', bg: '#5d636d', cat: 'Tops', label: 'Top · Gray' },
+  { shape: 'pants', color: '#8a5434', bg: '#6b3f25', cat: 'Bottoms', label: 'Bottom · Cocoa' },
+  { shape: 'shoes', color: '#3d8a8f', bg: '#0c0f12', cat: 'Shoes', label: 'Footwear · Teal' },
+  { shape: 'hat', color: '#9b8672', bg: '#4a3d33', cat: 'Accessories', label: 'Accessories · Taupe' },
 ];
-const SCORES = [
-  { label: 'Weather fit', value: 38, max: 40 },
-  { label: 'Preference', value: 27, max: 30 },
-  { label: 'Color harmony', value: 28, max: 30 },
+const OUTFIT_B = [
+  { shape: 'cami', color: '#f4ede2', bg: '#dcd6cc' },
+  { shape: 'skirt', color: '#a3a274', bg: '#8b8a5e' },
+  { shape: 'flats', color: '#eed98f', bg: '#d8c27a' },
+  { shape: 'bag', color: '#2a2420', bg: '#0b0a09' },
 ];
+const OCCASIONS = ['Casual', 'Formal', 'Date', 'Party', 'Sport'];
 
-function Screen({ step }) {
-  if (step === 0) {
-    return (
-      <>
-        <p className="ww-label">Add to wardrobe</p>
-        <div className="ww-photo">
-          <Shirt color="#E9A6C3" />
-          <span className="ww-scan" aria-hidden="true" />
-          <span className="ww-upload"><Upload /> Top · Casual</span>
-        </div>
-        <p className="ww-label">Detected colors</p>
-        <ul className="ww-swatches">
-          {COLORS.map((c, i) => (
-            <li key={c.hex} style={{ animationDelay: `${600 + i * 220}ms` }}>
-              <span style={{ background: c.hex }} />{c.name}<small>{c.hex}</small>
-            </li>
-          ))}
-        </ul>
-      </>
-    );
-  }
-  if (step === 1) {
-    return (
-      <>
-        <p className="ww-label">Today in Olongapo</p>
-        <div className="ww-weather ww-pop">
-          <Sun className="ww-sun" />
-          <div><b>31°C</b><small>Sunny · 10% rain</small></div>
-        </div>
-        <p className="ww-label">Filters applied</p>
-        <ul className="ww-filters">
-          {['Light fabrics', 'Short sleeves OK', 'No jacket needed'].map((f, i) => (
-            <li key={f} style={{ animationDelay: `${300 + i * 200}ms` }}><Check />{f}</li>
-          ))}
-        </ul>
-      </>
-    );
-  }
-  if (step === 2) {
-    const total = SCORES.reduce((a, s) => a + s.value, 0);
-    return (
-      <>
-        <p className="ww-label">Today&apos;s pick · Casual</p>
-        <div className="ww-outfit">
-          <Shirt color="#E9A6C3" /><Pants color="#F4E9DC" /><Shoes color="#B5577F" />
-        </div>
-        <ul className="ww-scores">
-          {SCORES.map((s, i) => (
-            <li key={s.label}>
-              <span>{s.label}</span><b>{s.value}/{s.max}</b>
-              <i style={{ '--w': `${(s.value / s.max) * 100}%`, animationDelay: `${i * 180}ms` }} />
-            </li>
-          ))}
-        </ul>
-        <p className="ww-match">Match score <b>{total}%</b></p>
-      </>
-    );
-  }
+function Header({ title, back }) {
   return (
     <>
-      <p className="ww-label">Outfit saved</p>
-      <div className="ww-saved">
-        <div className="ww-outfit ww-outfit--sm">
-          <Shirt color="#E9A6C3" /><Pants color="#F4E9DC" /><Shoes color="#B5577F" />
-        </div>
-        <Heart className="ww-heart" />
+      {back && <p className="wr-back">← Back</p>}
+      <p className="wr-title">{title}</p>
+    </>
+  );
+}
+
+function HomeScreen() {
+  return (
+    <>
+      <p className="wr-title">Irika Mey.</p>
+      <p className="wr-date">Monday, November 16</p>
+      <div className="wr-weather"><span className="wr-cloud" aria-hidden="true" /><div><b>31°C · Overcast</b><small>Mild day: layer up if needed.</small></div></div>
+      <div className="wr-generate wr-pulse"><span className="wr-spark" aria-hidden="true">✦</span><div><b>Generate outfit</b><small>AI-powered for today’s weather</small></div><span aria-hidden="true">›</span></div>
+      <p className="wr-label">Last outfit</p>
+      <div className="wr-card wr-last">
+        <b>Date Night Wednesday</b>
+        <div className="wr-row">{OUTFIT_B.map((p) => <Piece key={p.shape} {...p} />)}</div>
       </div>
-      <p className="ww-label">History</p>
-      <ul className="ww-history">
-        <li><span>Today</span>Blush top · Cream pants</li>
-        <li><span>Mon</span>Denim · White tee</li>
-        <li><span>Sun</span>Floral dress</li>
+      <p className="wr-sdg">SDG 12: Wear more of what you own and reduce textile waste.</p>
+    </>
+  );
+}
+
+function OccasionScreen() {
+  return (
+    <>
+      <Header title="What to wear?" back />
+      <p className="wr-muted">Pick an occasion for today.</p>
+      <ul className="wr-occasions">
+        {OCCASIONS.map((o) => <li key={o} className={o === 'Date' ? 'is-picked' : ''}>{o}</li>)}
+      </ul>
+      <p className="wr-cta wr-slide">✦ Generate outfit</p>
+    </>
+  );
+}
+
+function GenerateScreen() {
+  const rules = [
+    ['Weather-smart', 'Scored on today’s 31°C, overcast'],
+    ['Preference-aware', 'Your hearted pieces show up more'],
+    ['Occasion-matched', 'Only items tagged “Date”'],
+  ];
+  return (
+    <>
+      <Header title="What to wear?" back />
+      <p className="wr-chip">For <b>Date night</b></p>
+      <p className="wr-label">Generating outfits…</p>
+      <ul className="wr-rules">
+        {rules.map(([t, d], i) => (
+          <li key={t} style={{ animationDelay: `${i * 450}ms` }}>
+            <span className="wr-tick" style={{ animationDelay: `${i * 450 + 300}ms` }}><Check /></span>
+            <div><b>{t}</b><small>{d}</small></div>
+          </li>
+        ))}
       </ul>
     </>
   );
 }
 
+function CompareScreen({ worn = false }) {
+  return (
+    <>
+      <p className="wr-chip">For <b>Date night</b></p>
+      <div className="wr-outfits">
+        <div className="wr-outfit is-picked">
+          <div className="wr-grid">{OUTFIT_A.map((p) => <Piece key={p.shape} {...p} />)}</div>
+          <span className="wr-actions"><Heart className={worn ? 'wr-hearted' : ''} /></span>
+        </div>
+        <div className="wr-outfit">
+          <div className="wr-grid">{OUTFIT_B.map((p) => <Piece key={p.shape} {...p} />)}</div>
+          <span className="wr-actions"><Heart /></span>
+        </div>
+      </div>
+      <p className="wr-label">Items in this outfit</p>
+      <ul className="wr-items">
+        {OUTFIT_A.map((p, i) => (
+          <li key={p.label} style={{ animationDelay: `${i * 120}ms` }}>
+            <Piece {...p} /><div><b>{p.cat}</b><small>{p.label}</small></div>
+          </li>
+        ))}
+      </ul>
+      <p className="wr-score">Compatibility score: <em>86%</em></p>
+      <p className={`wr-wear ${worn ? 'is-done wr-press' : ''}`}>{worn ? <><Check /> Saved to history</> : 'Wear this outfit'}</p>
+    </>
+  );
+}
+
+function Screen({ step }) {
+  if (step === 0) return <HomeScreen />;
+  if (step === 1) return <OccasionScreen />;
+  if (step === 2) return <GenerateScreen />;
+  return <CompareScreen worn={step === 4} />;
+}
+
 export default function WearWhatDemo() {
-  const stepper = useStepper(STEPS.length);
+  const stepper = useStepper(STEPS.length, 3600);
   return (
     <DemoShell title="Getting dressed with WearWhat" steps={STEPS} stepper={stepper}>
       <div className="ww-stage">
         <div className="phone">
           <div className="phone__notch" aria-hidden="true" />
-          <div className="ww">
-            <p className="ww-brand">WearWhat</p>
-            <div className="ww-screen" key={stepper.step}><Screen step={stepper.step} /></div>
+          <div className="wr">
+            <div className="wr-top">
+              <span className="wr-logo">WearWhat</span>
+              <span className="wr-pill"><span className="wr-cloud wr-cloud--sm" aria-hidden="true" />31°C</span>
+            </div>
+            <div className="wr-screen" key={stepper.step}><Screen step={stepper.step} /></div>
+            <nav className="wr-nav" aria-hidden="true">
+              {['Home', 'Wardrobe', '+', 'Favorites', 'Profile'].map((n, i) => (
+                <span key={n} className={`${n === '+' ? 'wr-plus' : ''} ${i === 0 ? 'is-on' : ''}`}>{n}</span>
+              ))}
+            </nav>
           </div>
         </div>
       </div>
