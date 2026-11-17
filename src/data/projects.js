@@ -198,6 +198,9 @@ export const projects = [
       title: 'Design Concept & Logo',
       contribution: "I created Tugma's design concept and logo, and helped the team design the interface.",
       responsibilities: ['Design concept', 'Logo & brand identity', 'UI design support'],
+      logo: 'tugma',
+      logoNote:
+        'Two rounded pieces that lock together like a puzzle, the same way Tugma matches a lost item with its found report. “Tugma” means “match” in Filipino.',
     },
 
     painPoints: [],

@@ -5,6 +5,7 @@
 import DemoShell from './DemoShell.jsx';
 import { useStepper } from '../../hooks/useStepper';
 import { Check, Lock } from '../Icons.jsx';
+import TugmaLogo from '../TugmaLogo.jsx';
 
 const STEPS = [
   { label: 'Report', caption: 'A resident picks "I lost something" or "I found something", then chooses what kind of item it is.' },
@@ -32,9 +33,7 @@ const SCORES = [
 ];
 
 function Logo() {
-  return (
-    <span className="tg-logo" aria-hidden="true"><i /><i /></span>
-  );
+  return <span className="tg-logo"><TugmaLogo /></span>;
 }
 
 function ReportScreen() {

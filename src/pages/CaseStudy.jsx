@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import Reveal from '../components/Reveal.jsx';
 import SectionLink from '../components/SectionLink.jsx';
 import NotFound from './NotFound.jsx';
+import TugmaLogo from '../components/TugmaLogo.jsx';
 import { getProject, projects } from '../data/projects.js';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Sparkle } from '../components/Icons.jsx';
 import AskademicDemo from '../components/demos/AskademicDemo.jsx';
@@ -101,6 +102,19 @@ export default function CaseStudy() {
             <ul className="chips" aria-label="Responsibilities">
               {p.myRole.responsibilities.map((r) => <li key={r} className="chip"><Check />{r}</li>)}
             </ul>
+            {p.myRole.logo === 'tugma' && (
+              <figure className="role-logo">
+                <span className="role-logo__mark"><TugmaLogo title="Tugma logo" /></span>
+                <figcaption className="role-logo__text">
+                  <p className="label label--pink">Logo I designed</p>
+                  <p>{p.myRole.logoNote}</p>
+                  <p className="role-logo__swatches">
+                    <span><i style={{ background: '#164a5e' }} /> Deep teal</span>
+                    <span><i style={{ background: '#1f9468' }} /> Green</span>
+                  </p>
+                </figcaption>
+              </figure>
+            )}
           </div>
         </Block>
 

@@ -755,9 +755,18 @@ main:focus { outline: none; }
 .tg-brand { display: flex; align-items: center; gap: 10px; }
 .tg-brand b { display: block; font-size: 1.05rem; line-height: 1.1; }
 .tg-brand small { color: var(--tg-muted); font-size: 0.72rem; }
-.tg-logo { display: flex; padding: 4px 5px; border-radius: 5px; background: #cfe3df; }
-.tg-logo i { width: 11px; height: 14px; border-radius: 5px; background: var(--tg-blue); }
-.tg-logo i + i { margin-left: -3px; background: #2f8a6a; }
+.tg-logo { display: grid; place-items: center; width: 30px; height: 24px; padding: 3px; border-radius: 5px; background: #dfe9e7; }
+.tg-logo svg { width: 100%; height: 100%; }
+
+/* Logo showcase inside the "My role" box (for projects where I designed the logo) */
+.role-logo { display: flex; align-items: center; gap: clamp(16px, 4vw, 32px); flex-wrap: wrap; margin: 22px 0 0; padding: 18px; border-radius: var(--radius-sm); background: var(--surface); border: 1px solid var(--line); }
+.role-logo__mark { display: grid; place-items: center; width: 120px; aspect-ratio: 1; padding: 18px; border-radius: 22px; background: #f3f7f6; box-shadow: 0 10px 30px -12px rgba(31, 148, 104, 0.6); }
+.role-logo__mark svg { width: 100%; }
+.role-logo__text { flex: 1; min-width: 200px; }
+.role-logo__text p:not(.label) { margin-top: 6px; color: var(--muted); }
+.role-logo__swatches { display: flex; gap: 10px; margin-top: 12px; font-size: 0.8rem; color: var(--muted); }
+.role-logo__swatches span { display: inline-flex; align-items: center; gap: 6px; }
+.role-logo__swatches i { width: 14px; height: 14px; border-radius: 4px; }
 .tg-tabs { display: flex; gap: 4px; font-size: 0.82rem; font-weight: 600; color: var(--tg-muted); }
 .tg-tabs span { padding: 6px 12px; border-radius: 999px; transition: background-color 0.4s, color 0.4s; }
 .tg-tabs .is-on { background: var(--tg-blue); color: #fff; }
