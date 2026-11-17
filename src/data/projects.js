@@ -193,7 +193,8 @@ export const projects = [
       duration: 'Apr 2026 – Present (in progress)',
       platform: 'Mobile-first web app',
     },
-    stack: ['OpenWeatherMap API', 'K-Means clustering', '[Frontend]', '[Backend]'],
+    // Verified from the WearWhat repo (requirements.txt, main.py, js/, render.yaml).
+    stack: ['HTML · CSS · JavaScript', 'Python · Flask', 'scikit-learn (K-Means)', 'Supabase', 'Open-Meteo API', '@imgly background removal', 'Vercel + Render'],
     context:
       'A solo project that started as my UX Strategy & Research Practices exercise and became a full system. It is aligned with three UN Sustainable Development Goals: SDG 12 (Responsible Consumption and Production), SDG 3 (Good Health and Well-being), and SDG 9 (Industry, Innovation and Infrastructure).',
 
@@ -322,7 +323,7 @@ export const projects = [
     ],
 
     features: [
-      { group: 'Weather-smart recommendations', items: ['Outfits are scored on today’s temperature and conditions (OpenWeatherMap API).'] },
+      { group: 'Weather-smart recommendations', items: ['Outfits are scored on today’s temperature and conditions (Open-Meteo API).'] },
       { group: 'Preference-aware styling', items: ['Heart your favorite pieces to see them more often in recommendations.'] },
       { group: 'Occasion-matched outfits', items: ['Only items tagged for the chosen occasion appear: casual, formal, date, party, or sport.'] },
       { group: 'Recommendation engine', items: ['Weighted scoring: 40% weather fit, 30% preference, 30% color harmony.', 'Recommendations are ranked by compatibility score (e.g. 86%), so you can pick the highest one.'] },
