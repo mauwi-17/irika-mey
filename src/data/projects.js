@@ -283,7 +283,99 @@ export const projects = [
         'Two rounded pieces that lock together like a puzzle, the same way Tugma matches a lost item with its found report. “Tugma” means “match” in Filipino.',
     },
 
-    painPoints: [],
+    research:
+      'We studied how lost-and-found works in Barangay Sta. Rita today and gathered input from both sides who would use the system: barangay staff and residents. After our adviser approved the system, they tried it hands-on and answered a survey about it.',
+
+    painPoints: [
+      {
+        title: 'Personal data exposed online',
+        text: 'Found items, especially government IDs, are often posted on Facebook to find the owner, exposing personal information without consent (RA 10173). In Tugma, names and numbers are visible to barangay staff only and never appear in match results.',
+      },
+      {
+        title: 'Slow, manual records',
+        text: 'Reporting and searching through manual records takes time and effort, so items stay unclaimed. A Records page with live counts, search, and filters lets staff see every open report at once.',
+      },
+      {
+        title: 'Same item, different words',
+        text: 'People describe things differently: “cellphone” or “phone”, English or Taglish (“Samsung na may clear case”). Matching scores category, color, description, location, and date instead of looking for the exact same words.',
+      },
+      {
+        title: 'Proving real ownership',
+        text: 'Before returning an item, staff must be sure the person is the real owner. “Mark as claimed” records who claimed it and what proof they showed, then locks both reports.',
+      },
+    ],
+
+    personas: [
+      {
+        name: 'Lea',
+        age: 20,
+        occupation: 'College student',
+        hometown: 'Barangay Sta. Rita',
+        quote: 'I just want my ID back, not posted for everyone to see.',
+        statement:
+          'Lea is a resident who lost her wallet with her school ID at the covered court and needs a safe way to get it back without her details being posted online.',
+        goal: 'Report the lost item quickly and get it back.',
+        frustration: 'She doesn’t know where to report, and worries her ID photo will end up on Facebook.',
+      },
+      {
+        name: 'Mr. Dante',
+        age: 47,
+        occupation: 'Barangay staff',
+        hometown: 'Barangay Sta. Rita',
+        quote: 'I know it’s here somewhere in the logbook.',
+        statement:
+          'Mr. Dante is a barangay staff member who handles lost-and-found and needs to match items with their owners without digging through paper records.',
+        goal: 'Match and return items fast while following data privacy rules.',
+        frustration: 'Manual records are hard to search, and it’s hard to tell if a claimant is the real owner.',
+      },
+    ],
+
+    journeys: [
+      {
+        tab: 'Resident: report a lost item',
+        persona: 'Lea, a resident who lost her wallet',
+        goal: 'Get her wallet and ID back safely.',
+        steps: [
+          { title: 'Realize the item is lost', feeling: 'Worried', mood: 1.8, opportunity: 'One clear place to report, instead of posting online.' },
+          { title: 'Report the item', feeling: 'Unsure', mood: 2.8, opportunity: 'Category cards, helper hints, and a privacy notice before submitting.' },
+          { title: 'Wait for a match', feeling: 'Anxious', mood: 2.3, opportunity: 'Staff compare it against everything on file and contact her.' },
+          { title: 'Claim the item', feeling: 'Relieved', mood: 4.6, opportunity: 'Staff verify ownership and note what proof was shown.' },
+        ],
+      },
+      {
+        tab: 'Staff: match and return',
+        persona: 'Mr. Dante, barangay staff',
+        goal: 'Return items to their real owners without exposing anyone’s data.',
+        steps: [
+          { title: 'Open the records', feeling: 'Organized', mood: 4, opportunity: 'Live counts of lost, found, matched, and claimed items.' },
+          { title: 'Review new reports', feeling: 'Busy', mood: 2.8, opportunity: 'Search and filters; test data kept separate.' },
+          { title: 'Find matches', feeling: 'Hopeful', mood: 3.8, opportunity: 'Scores out of 100; only 50% and up shown, with a confidence label.' },
+          { title: 'Confirm the match', feeling: 'Confident', mood: 4.2, opportunity: 'Contact details visible to staff only.' },
+          { title: 'Mark as claimed', feeling: 'Relieved', mood: 4.6, opportunity: 'Record the claimant and proof; both reports are locked.' },
+        ],
+      },
+    ],
+
+    usability: {
+      intro:
+        'Testing happened in two stages: our adviser reviewed and approved the system, then barangay staff and residents used it hands-on and answered a survey about it.',
+      rounds: [
+        {
+          title: 'Stage 1 · Adviser review',
+          findings: [
+            { title: 'System approved for testing.', text: 'Our adviser reviewed the system’s flow and design and approved it before we ran the survey with real users.' },
+          ],
+        },
+        {
+          title: 'Stage 2 · Hands-on survey',
+          findings: [
+            { title: 'Real users, real tasks.', text: 'Barangay staff and residents used the system themselves: residents filed reports, and staff reviewed records and found matches.' },
+            { title: 'Survey after use.', text: 'Right after using it, they answered a survey about how easy and useful the system was.' },
+            { title: '[Key survey result]', text: '[Add 1–2 results from your survey, e.g. how many respondents and how they rated ease of use.]' },
+          ],
+        },
+      ],
+    },
 
     process: [
       { title: 'Report', text: 'Residents choose “I lost something” or “I found something”.' },
@@ -308,8 +400,14 @@ export const projects = [
       'The privacy notice is written in simple words right above the submit button, so people know who can see their details before sending.',
     ],
 
-    learned: '[What you learned creating the design concept and logo for a community system.]',
-    nextSteps: ['[An improvement you would add next.]'],
+    impact:
+      'Tugma was tested by the people it is built for: barangay staff and residents of Barangay Sta. Rita used it hands-on and answered a survey about it. [Add your key survey result here.]',
+    learned:
+      'Creating Tugma’s design concept and logo taught me that a brand for a public service has to feel trustworthy before it feels stylish. I chose two simple pieces that fit together in calm teal and green, so the idea of “matching” is clear at a glance, even for residents who rarely use apps. Watching the interface come together with the team also showed me how small design choices, like a plain-language privacy notice, build that same trust inside the system.',
+    nextSteps: [
+      'SMS alerts: text the owner as soon as staff confirm a match, so residents don’t have to keep checking.',
+      'Grow beyond one barangay: share the same privacy-first matching with nearby barangays in Olongapo City.',
+    ],
   },
 ];
 
