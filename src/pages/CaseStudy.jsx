@@ -157,7 +157,7 @@ export default function CaseStudy() {
         )}
 
         <Block id="process" num={`${num()} / Process`} title="How it works">
-          <ol className="flow">
+          <ol className="flow" style={{ '--n': p.process.length }}>
             {p.process.map((s, i) => (
               <li key={s.title} className="flow__step">
                 <span className="flow__num">{String(i + 1).padStart(2, '0')}</span>

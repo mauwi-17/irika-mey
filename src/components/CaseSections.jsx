@@ -50,22 +50,31 @@ export function Stats({ stats }) {
   );
 }
 
-// Emotion curve: each step's mood (1 = negative, 5 = positive) plotted as a line.
+// Emotion curve: each step's mood (1 = negative, 5 = positive).
+// Dots are positioned in the same columns as the step cards below, so each dot sits
+// exactly above its step. The line is an SVG in % units; dots and labels are HTML,
+// so they stay perfectly round and never stretch.
+const moodTop = (m) => 88 - ((m - 1) / 4) * 76; // % from the top (positive = higher)
+
 function MoodCurve({ steps }) {
-  const w = 600;
-  const h = 120;
-  const pad = 30;
-  const x = (i) => pad + (i * (w - pad * 2)) / Math.max(steps.length - 1, 1);
-  const y = (m) => h - 14 - ((m - 1) / 4) * (h - 28);
-  const d = steps.map((s, i) => `${i ? 'L' : 'M'}${x(i)} ${y(s.mood)}`).join(' ');
+  const n = steps.length;
+  const pts = steps.map((s, i) => `${((i + 0.5) / n) * 100},${moodTop(s.mood)}`).join(' ');
   return (
-    <svg className="journey__curve" viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" aria-hidden="true">
-      <line x1="0" x2={w} y1={h / 2} y2={h / 2} className="journey__mid" />
-      <text x="4" y="12" className="journey__axis">positive</text>
-      <text x="4" y={h - 4} className="journey__axis">negative</text>
-      <path d={d} className="journey__line" />
-      {steps.map((s, i) => <circle key={s.title} cx={x(i)} cy={y(s.mood)} r="6" className="journey__dot" />)}
-    </svg>
+    <div className="journey__curve" aria-hidden="true">
+      <span className="journey__axis journey__axis--pos">Positive</span>
+      <span className="journey__axis journey__axis--neg">Negative</span>
+      <svg className="journey__svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <line x1="0" x2="100" y1="50" y2="50" className="journey__mid" />
+        <polyline points={pts} className="journey__line" />
+      </svg>
+      <div className="journey__dots" style={{ '--n': n }}>
+        {steps.map((s) => (
+          <span key={s.title} className="journey__col">
+            <i className="journey__dot" style={{ top: `${moodTop(s.mood)}%` }} />
+          </span>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -85,16 +94,21 @@ export function JourneyMaps({ journeys }) {
       <div className="journey__panel cs-card" role="tabpanel">
         <h3>{j.persona}</h3>
         <p className="cs-muted">Goal: {j.goal}</p>
-        <MoodCurve steps={j.steps} />
-        <ol className="journey__steps" style={{ '--n': j.steps.length }}>
-          {j.steps.map((s, i) => (
-            <li key={s.title}>
-              <b>{i + 1}. {s.title}</b>
-              <span className="journey__feel">{s.feeling}</span>
-              <p>{s.opportunity}</p>
-            </li>
-          ))}
-        </ol>
+        {/* Chart + steps scroll sideways together on small screens so the dots stay aligned */}
+        <div className="journey__scroll">
+          <div className="journey__chart" style={{ '--n': j.steps.length }}>
+            <MoodCurve steps={j.steps} />
+            <ol className="journey__steps">
+              {j.steps.map((s, i) => (
+                <li key={s.title}>
+                  <b>{i + 1}. {s.title}</b>
+                  <span className="journey__feel">{s.feeling}</span>
+                  <p>{s.opportunity}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
       </div>
     </div>
   );
