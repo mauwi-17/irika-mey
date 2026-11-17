@@ -168,7 +168,7 @@ export const projects = [
     impact:
       'Askademic replaces chasing instructors with bookable slots and a recorded outcome for every consultation. Its dashboard already tracks 46 consultation requests across 8 faculty and 5 students, with 14 closed with a recorded outcome.',
     learned:
-      'Understand how an organization is structured before designing for it. We built an admin because it was a familiar pattern, but the panel’s questions showed that the real structure was a chain of review: instructor, program chair, then department dean.',
+      'As the Architecture & Design Lead, I learned to understand how an organization actually works before deciding how a system should be structured. We started with a single admin role because it was a familiar pattern, but the defense panel’s questions showed that the real structure is a chain of review: instructor, program chair, then department dean. Rebuilding the roles around that chain taught me that architecture is not only about screens and data, but about the people and decisions behind them. It also taught me to design for the moments when things go wrong, like no-shows, so every consultation ends with a clear record.',
     nextSteps: [
       'Integrate Google Calendar: students and instructors already plan their days there. Syncing approved consultations saves part-time instructors from keeping a second calendar, and answers the faculty representative’s call for a calendar they already know.',
       'Deploy across the whole campus: every department has the same problem. The system already supports roles, program views, and school-wide closed dates, so it can grow beyond the CCS department.',
