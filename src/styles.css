@@ -479,6 +479,17 @@ main:focus { outline: none; }
 .persona__gf { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--line); }
 .persona__gf p:not(.label) { font-size: 0.9rem; margin-top: 4px; }
 
+.persona--wide .persona__gf { grid-template-columns: repeat(3, 1fr); }
+.persona__list { display: grid; gap: 6px; margin-top: 6px; padding-left: 1.1em; list-style: disc; font-size: 0.9rem; color: var(--muted); }
+.persona__list li::marker { color: var(--pink); }
+.persona__quote cite { display: block; margin-top: 4px; font-family: var(--font-body); font-style: normal; font-size: 0.78rem; color: var(--muted); }
+
+/* Survey stat tiles */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-top: 24px; }
+.stats li { display: grid; gap: 6px; padding: 18px; border-radius: var(--radius-sm); background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--pink); }
+.stats b { font-family: var(--font-y2k); font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.4rem); line-height: 1; }
+.stats span { font-size: 0.88rem; color: var(--muted); }
+
 /* Journey maps */
 .journey { margin-top: 20px; }
 .journey__tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
@@ -947,7 +958,7 @@ main:focus { outline: none; }
   .nav__inner { min-height: 64px; }
   .work-grid, .cs-grid--2 { grid-template-columns: 1fr; }
   .journey__steps { grid-template-columns: 1fr 1fr; }
-  .persona__gf { grid-template-columns: 1fr; }
+  .persona__gf, .persona--wide .persona__gf { grid-template-columns: 1fr; }
   .flow__step::after { display: none; }
   /* Tugma mock on phones: stack forms, hide less important table columns */
   .tg-form, .tg-bars, .tg-pair { grid-template-columns: 1fr; }

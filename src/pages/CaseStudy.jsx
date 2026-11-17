@@ -3,7 +3,7 @@ import Reveal from '../components/Reveal.jsx';
 import SectionLink from '../components/SectionLink.jsx';
 import NotFound from './NotFound.jsx';
 import TugmaLogo from '../components/TugmaLogo.jsx';
-import { JourneyMaps, Personas, Usability } from '../components/CaseSections.jsx';
+import { JourneyMaps, Personas, Stats, Usability } from '../components/CaseSections.jsx';
 import { getProject, projects } from '../data/projects.js';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Sparkle } from '../components/Icons.jsx';
 import AskademicDemo from '../components/demos/AskademicDemo.jsx';
@@ -122,6 +122,7 @@ export default function CaseStudy() {
         {p.painPoints.length > 0 && (
           <Block id="users" num={`${num()} / Understanding the user`} title={p.research ? 'User research & pain points' : 'Pain points'}>
             {p.research && <p className="cs-lead">{p.research}</p>}
+            {p.researchStats && <Stats stats={p.researchStats} />}
             <ol className="cs-grid cs-grid--2 pain-list">
               {p.painPoints.map((pp, i) => (
                 <li key={pp.title} className="cs-card">

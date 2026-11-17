@@ -193,77 +193,93 @@ export const projects = [
       duration: 'Apr 2026 – Present (in progress)',
       platform: 'Mobile-first web app',
     },
-    stack: ['OpenWeatherMap API', 'K-Means clustering', '[Frontend]', '[Backend]'],    context:
-      'A solo project combining my interest in fashion with full-stack development, aligned with UN SDG 12 (Responsible Consumption).',
+    stack: ['OpenWeatherMap API', 'K-Means clustering', '[Frontend]', '[Backend]'],
+    context:
+      'A solo project that started as my UX Strategy & Research Practices exercise and became a full system. It is aligned with three UN Sustainable Development Goals: SDG 12 (Responsible Consumption and Production), SDG 3 (Good Health and Well-being), and SDG 9 (Industry, Innovation and Infrastructure).',
 
     product:
-      'WearWhat is a mobile-first app that acts as your personal AI-powered stylist. You add your clothes, pick an occasion, and it generates outfit combinations from your own wardrobe, scored for today’s weather, your favorite pieces, and color harmony.',
+      'WearWhat is a smart wardrobe organizer with adaptive outfit recommendation. You digitize your wardrobe through photo upload, and it generates personalized outfit suggestions from your own clothes based on real-time weather, your preferences, and color-harmony principles, so getting dressed feels effortless.',
     users: [
-      { who: 'Everyday dressers', need: 'want to decide what to wear quickly, using clothes they already own.' },
-      { who: 'Conscious shoppers', need: 'want to get more wear out of their closet instead of buying new clothes.' },
+      { who: 'College students', need: 'juggle class schedules, social events, and different dress codes, and need to decide quickly.' },
+      { who: 'Busy professionals', need: 'need to look put-together every day without spending much time and energy on it.' },
     ],
     problem:
-      "Deciding what to wear every day takes time, and many clothes go unworn because it's easy to forget what's in your closet. That leads to buying more and to textile waste.",
+      'Daily outfit selection causes unnecessary decision fatigue, wastes time, encourages impulse buying, and leads to underutilized wardrobes, all of which affect a person’s mental well-being, daily routine, and consumption habits.',
     goal:
-      'Help people wear more of what they already own (SDG 12) with weather-aware, occasion-matched outfit suggestions from their real wardrobe.',
+      'Remove the stress and wasted time of deciding what to wear, and encourage more sustainable fashion habits by helping people get more out of the clothes they already own.',
 
     myRole: {
       title: 'Full-stack Developer',
-      contribution: 'Solo project: I handled the design, frontend, backend, and recommendation logic.',
-      responsibilities: ['UI/UX design', 'Frontend', 'Backend', 'Recommendation algorithm', 'API integration'],
+      contribution: 'Solo project: I handled the UX research, design, frontend, backend, and recommendation logic.',
+      responsibilities: ['UX research', 'UI/UX design', 'Frontend', 'Backend', 'Recommendation algorithm', 'API integration'],
     },
 
     research:
-      'Before building, I researched how people decide what to wear, why so many clothes go unworn, and how this connects to textile waste and UN SDG 12 (Responsible Consumption). I also looked at how existing outfit apps work, which shaped WearWhat’s focus: use the clothes you already own, styled for today’s weather.',
+      'I used two methods with target users (students and busy professionals): an online survey with five multiple-choice and rating questions, answered by four respondents, and online interviews over Google Meet with four participants, using five open-ended questions about their daily dressing habits.',
+    researchStats: [
+      { value: '4.0/5', label: 'average likelihood to use an AI outfit app; no one rated below 3' },
+      { value: '75%', label: 'said the weather sometimes made their outfit uncomfortable; 25% said very often' },
+      { value: '50%', label: 'always repeat the same outfits; nobody said rarely or never' },
+      { value: '75%', label: 'are comfortable uploading clothing photos; 25% unsure, none uncomfortable' },
+    ],
 
     painPoints: [
       {
-        title: 'Decision fatigue every morning',
-        text: 'Choosing an outfit takes time, especially when you’re in a rush. WearWhat turns it into three taps: pick an occasion, generate, wear.',
+        title: 'Getting dressed looks simple, but the mental effort adds up',
+        text: 'No respondent spends more than 15 minutes deciding, but words like “stressed,” “last minute,” and “stuck” kept coming up in interviews. WearWhat replaces the daily “what would look good in this situation?” with: pick an occasion, generate, wear.',
       },
       {
-        title: 'Forgotten clothes',
-        text: 'It’s easy to forget what’s in your closet, so the same few pieces get worn while others are ignored. A digital wardrobe keeps every item visible and in the mix.',
+        title: 'Everyone sticks to their favorites',
+        text: 'All four respondents said they stick to a few favorite pieces, matching research that people regularly wear only about 20–30% of what they own. A digital wardrobe keeps every item visible and in the mix.',
       },
       {
-        title: 'Dressing for the wrong weather',
-        text: 'Philippine weather can be very hot or suddenly rainy. Live weather data makes each suggestion fit the day.',
+        title: 'Weather is a known factor, but not planned around',
+        text: 'Every respondent has felt uncomfortable because their outfit didn’t suit the weather. That’s why weather fit carries the biggest weight (40%) in the recommendation score.',
       },
       {
-        title: 'Buying more than we need',
-        text: 'When outfits feel repetitive, people buy new clothes, which adds to textile waste. Fresh combinations from your own wardrobe help you wear more of what you already own.',
+        title: 'People buy duplicates they can’t see',
+        text: 'Three of four respondents had bought something only to find they already owned something similar at home. A searchable digital wardrobe shows what you already have before you buy.',
+      },
+      {
+        title: 'Ready to use it, as long as it knows their style',
+        text: 'All four said they would use an app like WearWhat if it “matches my style, the weather, and the clothes I already have.” Users want suggestions that feel personalized and trustworthy, not generic.',
       },
     ],
 
     personas: [
       {
-        name: 'Bea',
-        age: 21,
-        occupation: 'College student',
+        name: 'Jocelyn Docena',
+        occupation: 'Busy professional · Junior Marketing Associate',
         hometown: 'Olongapo City',
-        quote: 'I have so many clothes but nothing to wear.',
+        quote: 'That way I won’t second-guess if the outfits I’ll be wearing looks good.',
+        quoteSource: '— actual interview respondent',
         statement:
-          'Bea is a college student who needs to put together outfits quickly because her mornings are rushed and she keeps wearing the same few pieces.',
-        goal: 'Look put-together for class and events without spending time deciding.',
-        frustration: 'She forgets what she owns and often ends up overheated or caught in the rain.',
-      },
-      {
-        name: 'Paolo',
-        age: 26,
-        occupation: 'Young professional',
-        hometown: 'Subic',
-        quote: 'Is this okay for tonight?',
-        statement:
-          'Paolo is a young professional who needs outfit ideas for different occasions because he isn’t confident about matching colors.',
-        goal: 'Dress right for work, dates, and the gym using clothes he already has.',
-        frustration: 'He’s unsure which colors go together, so he buys new clothes instead of trying new combinations.',
+          'Jocelyn is a busy professional who needs to look presentable at work and social events without spending too much time deciding what to wear every morning.',
+        goal: [
+          'Look presentable and put-together at work and social events without spending too much time deciding.',
+          'Actually use all the clothes she owns instead of the same few outfits.',
+          'Feel confident in her outfits and stop second-guessing herself.',
+        ],
+        frustration: [
+          'Gets stuck every morning asking “what would look good in this situation?” and defaults to the safest outfit.',
+          'Has a full closet but feels like she has nothing to wear.',
+          'Has bought clothes online, only to find something almost identical at home.',
+          'Has shown up over- or under-dressed because she thought about the dress code too late.',
+          'On rainy or very hot days, her outfit feels completely wrong for the weather.',
+        ],
+        behavior: [
+          'Uses her smartphone for almost everything, including checking the weather.',
+          'Grabs her “safe” outfits on busy mornings.',
+          'Browses outfit inspiration online but struggles to recreate it with what she owns.',
+          'Comfortable uploading clothing photos if it’s quick and worth it.',
+        ],
       },
     ],
 
     journeys: [
       {
         tab: 'User: get dressed with WearWhat',
-        persona: 'Bea, getting ready for a date night',
+        persona: 'Jocelyn, getting ready for a date night',
         goal: 'Find a good outfit fast from her own closet.',
         steps: [
           { title: 'Add clothes', feeling: 'Curious', mood: 3.2, opportunity: 'Color detection and background removal happen automatically.' },
@@ -277,18 +293,21 @@ export const projects = [
 
     usability: {
       intro:
-        'WearWhat was evaluated at the project defense, and I also shared it with fellow students so they could try it on their own phones.',
+        'Before development, I reviewed WearWhat’s content and navigation and found three issues, each with a recommended improvement. The finished system was then evaluated at the project defense and shared with fellow students.',
       rounds: [
         {
-          title: 'Project defense',
+          title: 'Content review',
           findings: [
-            { title: 'Fully accepted and approved.', text: 'The panel reviewed the system during the defense, and it was fully accepted and approved.' },
+            { title: 'Recommendations need to explain themselves.', text: 'An outfit with no reason feels arbitrary, so users won’t trust it. Recommendation: show why each outfit was chosen, e.g. warm day, casual outing, colors that go together.' },
+            { title: 'A full wardrobe setup can feel overwhelming.', text: 'Uploading everything before seeing value causes drop-off. Recommendation: let users start with a few items and add more over time.' },
+            { title: 'One category per item is too rigid.', text: 'A blouse can be both casual and semi-formal. Recommendation: allow multiple tags per item. Clothes can now be tagged with every occasion that applies.' },
           ],
         },
         {
-          title: 'Shared with fellow students',
+          title: 'Defense & sharing',
           findings: [
-            { title: 'Tried on real wardrobes.', text: 'Classmates used it on their own phones, uploading their own clothes and generating outfits.' },
+            { title: 'Fully accepted and approved.', text: 'The panel reviewed the system during the project defense, and it was fully accepted and approved.' },
+            { title: 'Shared with fellow students.', text: 'I shared WearWhat with classmates so they could try it with their own clothes.' },
           ],
         },
       ],
@@ -318,9 +337,9 @@ export const projects = [
     ],
 
     impact:
-      'WearWhat was fully accepted and approved at the project defense, and fellow students have tried it with their own wardrobes, getting more use out of clothes they already own.',
+      'WearWhat went from research to a working system: all four interview participants said they would use an app like it, survey respondents rated their likelihood 4.0 out of 5 on average, it was fully accepted and approved at the project defense, and fellow students have tried it with their own wardrobes.',
     learned:
-      'Building WearWhat alone taught me to own every layer of a system: the design, the frontend, the backend, and the logic that ties them together. Turning “what looks good” into a 40/30/30 weighted score showed me how to translate a fuzzy human decision into rules a computer can follow. Most of all, I learned to keep the experience simple: the hard work (color detection, background removal, weather) happens in the background, so the user only has to pick an occasion and wear.',
+      'WearWhat taught me that UX is not just about making something look good. It is about understanding the people who will actually use it. Before this, I thought of design as a mostly visual process. Talking to real people about their dressing habits gave answers that were more honest and emotionally layered than I expected: words like “stressed,” “last minute,” and “stuck” came up naturally, and those words became the foundation of everything I designed afterward. I also learned to turn raw user data into structured insights, personas, and design decisions, and that a technically sound app that users find confusing is not a successful one.',
     nextSteps: [
       'Plan ahead: suggest outfits for the week using the weather forecast, not just today’s.',
       'Rediscover unworn clothes: highlight pieces that haven’t been worn in a while to support SDG 12.',

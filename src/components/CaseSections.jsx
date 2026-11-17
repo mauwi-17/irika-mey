@@ -2,28 +2,51 @@
 // and usability study findings. Each one only renders when the project has that data.
 import { useState } from 'react';
 
+// A persona field can be one sentence or a list of points.
+function Points({ value }) {
+  if (Array.isArray(value)) return <ul className="persona__list">{value.map((v) => <li key={v}>{v}</li>)}</ul>;
+  return <p>{value}</p>;
+}
+
 export function Personas({ personas }) {
+  const single = personas.length === 1;
   return (
-    <div className="cs-grid cs-grid--2">
+    <div className={single ? 'persona-single' : 'cs-grid cs-grid--2'}>
       {personas.map((p) => (
-        <article key={p.name} className="cs-card persona">
+        <article key={p.name} className={`cs-card persona ${single ? 'persona--wide' : ''}`}>
           <header className="persona__head">
             <span className="persona__avatar" aria-hidden="true">{p.name[0]}</span>
             <div>
               <h3>{p.name}</h3>
-              <p className="persona__meta">{p.age} · {p.occupation} · {p.hometown}</p>
+              <p className="persona__meta">{[p.age, p.occupation, p.hometown].filter(Boolean).join(' · ')}</p>
             </div>
           </header>
-          {p.quote && <blockquote className="persona__quote">“{p.quote}”</blockquote>}
+          {p.quote && (
+            <blockquote className="persona__quote">
+              “{p.quote}”{p.quoteSource && <cite> {p.quoteSource}</cite>}
+            </blockquote>
+          )}
           <p className="label label--pink">Problem statement</p>
           <p className="persona__statement">{p.statement}</p>
           <div className="persona__gf">
-            <div><p className="label">Goal</p><p>{p.goal}</p></div>
-            <div><p className="label">Frustration</p><p>{p.frustration}</p></div>
+            <div><p className="label">{Array.isArray(p.goal) ? 'Goals' : 'Goal'}</p><Points value={p.goal} /></div>
+            <div><p className="label">{Array.isArray(p.frustration) ? 'Frustrations' : 'Frustration'}</p><Points value={p.frustration} /></div>
+            {p.behavior && <div><p className="label">Behavior</p><Points value={p.behavior} /></div>}
           </div>
         </article>
       ))}
     </div>
+  );
+}
+
+// Survey results shown as big number tiles.
+export function Stats({ stats }) {
+  return (
+    <ul className="stats">
+      {stats.map((s) => (
+        <li key={s.label}><b className="chrome-text">{s.value}</b><span>{s.label}</span></li>
+      ))}
+    </ul>
   );
 }
 
