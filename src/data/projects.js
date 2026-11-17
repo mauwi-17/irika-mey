@@ -26,7 +26,7 @@ export const projects = [
     // Verified from the live site's build (React bundle, Vite PWA files, Supabase API URL).
     stack: ['React', 'Vite (installable PWA)', 'React Router', 'Supabase', 'Vercel'],
     context:
-      'Our Software Engineering project, also written up as a concept note for the Philippine Startup Challenge XI under team Ctrl Alt Elite (CAE).',
+      'Our Software Engineering project at Gordon College, College of Computer Studies.',
 
     product:
       'Askademic is a web-based consultation system designed for college students to request appointment slots with faculty members. Instructors can approve requests and document the consultation details, while program chairs and department deans can review student feedback and ratings. Overall, the platform streamlines student–instructor communication and improves the consultation experience.',
