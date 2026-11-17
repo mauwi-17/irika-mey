@@ -136,7 +136,7 @@ export const projects = [
     painPoints: [],
 
     process: [
-      { title: 'Add clothing', text: 'Photo + automatic color detection.' },
+      { title: 'Add clothing', text: 'Photo → background removed → color detected → saved.' },
       { title: 'Check today', text: 'Live weather on the home screen.' },
       { title: 'Pick occasion', text: 'Casual, formal, date, party, or sport.' },
       { title: 'Generate', text: 'Outfits scored with a compatibility %.' },
@@ -147,8 +147,8 @@ export const projects = [
       { group: 'Weather-smart recommendations', items: ['Outfits are scored on today’s temperature and conditions (OpenWeatherMap API).'] },
       { group: 'Preference-aware styling', items: ['Heart your favorite pieces to see them more often in recommendations.'] },
       { group: 'Occasion-matched outfits', items: ['Only items tagged for the chosen occasion appear: casual, formal, date, party, or sport.'] },
-      { group: 'Compatibility score', items: ['Each generated outfit shows a score, e.g. 86%, so you can compare options side by side.'] },
-      { group: 'Color detection', items: ['K-Means clustering finds the dominant color of each uploaded item automatically.'] },
+      { group: 'Recommendation engine', items: ['Weighted scoring: 40% weather fit, 30% preference, 30% color harmony.', 'Each outfit shows a compatibility score (e.g. 86%) to compare options side by side.'] },
+      { group: 'Smart upload', items: ['Gallery or camera upload with automatic background removal.', 'K-Means clustering detects each item’s dominant color.', 'Tag clothing type and every occasion an item fits.'] },
       { group: 'History & favorites', items: ['Track what you’ve worn and save outfits you love.'] },
     ],
 

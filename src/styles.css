@@ -645,6 +645,27 @@ main:focus { outline: none; }
 .wr-rules { display: grid; gap: 6px; }
 .wr-rules li { display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 10px; background: var(--wr-card); border: 1px solid var(--wr-line); animation: slideIn 0.4s var(--ease) both; }
 .wr-tick { display: grid; place-items: center; flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--wr-amber); color: #1a2a3c; animation: popIn 0.4s var(--ease) both; }
+/* Add Clothing screen: upload -> remove BG -> detect color -> saving */
+.wr-upload { display: flex; align-items: center; gap: 10px; padding: 8px; border: 1.5px dashed var(--wr-amber); border-radius: 12px; background: #1c1a10; }
+.wr-photo { position: relative; width: 58px; flex: none; border-radius: 8px; overflow: hidden; }
+.wr-photo .wr-tile { border-radius: 8px; animation: popIn 0.4s var(--ease) both; }
+.wr-scan { position: absolute; left: 0; right: 0; height: 2px; background: var(--wr-amber); box-shadow: 0 0 8px var(--wr-amber); animation: scan 0.9s ease-in-out 3 alternate; }
+@keyframes scan { from { top: 6%; } to { top: 94%; } }
+.wr-detected { display: inline-flex; align-items: center; gap: 5px; font-weight: 700; color: #e8c15a; opacity: 0; animation: wrReveal 0.4s 1.6s var(--ease) forwards; }
+@keyframes wrReveal { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.wr-detected span { width: 12px; height: 12px; border-radius: 3px; border: 1px solid rgba(255,255,255,.4); }
+.wr-stages { display: grid; grid-template-columns: repeat(4, 1fr); padding: 8px 4px; border-radius: 10px; background: var(--wr-card); text-align: center; font-size: 0.52rem; color: var(--wr-muted); counter-reset: none; }
+.wr-stages li { display: grid; justify-items: center; gap: 3px; }
+.wr-stages i { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; font-style: normal; font-weight: 700; background: #2b4a6e; color: var(--wr-muted); animation: stageOn 0.3s var(--d) forwards; }
+@keyframes stageOn { to { background: var(--wr-amber); color: #1a2a3c; } }
+.wr-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.wr-tags li { padding: 4px 9px; border-radius: 999px; background: #1a2b40; border: 1px solid var(--wr-line); color: var(--wr-muted); font-size: 0.6rem; }
+.wr-tags li.is-on { background: #c9d3de; color: #1a2a3c; border-color: #c9d3de; font-weight: 700; animation: popIn 0.4s var(--ease) both; }
+.wr-save { margin-top: auto; opacity: 0.55; animation: saveOn 0.4s 2.6s forwards; }
+@keyframes saveOn { to { opacity: 1; } }
+.wr-filter { display: flex; align-items: center; gap: 6px; color: var(--wr-muted); }
+.wr-filter svg { color: var(--wr-amber); }
+.wr-weight { display: grid; place-items: center; flex: none; width: 36px; height: 24px; border-radius: 999px; background: var(--wr-amber); color: #1a2a3c; font-weight: 800; font-size: 0.62rem; animation: popIn 0.4s var(--ease) both; }
 .wr-outfits { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .wr-outfit { border-radius: 10px; overflow: hidden; background: var(--wr-card); border: 1.5px solid transparent; animation: popIn 0.5s var(--ease) both; }
 .wr-outfit + .wr-outfit { animation-delay: 0.15s; }

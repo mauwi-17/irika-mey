@@ -7,9 +7,10 @@ import { useStepper } from '../../hooks/useStepper';
 import { Check, Heart } from '../Icons.jsx';
 
 const STEPS = [
+  { label: 'Add clothing', caption: 'Upload a photo or take one. The background is removed and the color is detected automatically. Then tag the type and every occasion it fits.' },
   { label: 'Home', caption: 'The home screen shows today’s live weather and one big “Generate Outfit” button.' },
   { label: 'Occasion', caption: 'Pick an occasion. Only clothes tagged for it (casual, formal, date, party, sport) are used.' },
-  { label: 'Generate', caption: 'Outfits are scored on today’s weather, the pieces you’ve hearted, and the occasion.' },
+  { label: 'Generate', caption: 'Each combination is scored: 40% weather fit, 30% your preferences (hearted pieces), 30% color harmony.' },
   { label: 'Compare', caption: 'Two outfits appear side by side. Each item is listed with its category and color, plus a compatibility score.' },
   { label: 'Wear it', caption: 'Tap “Wear this outfit” and it’s saved to your history as your last outfit.' },
 ];
@@ -24,6 +25,7 @@ const SHAPES = {
   skirt: 'M13 5h14l9 31H4Z',
   flats: 'M3 28q1-7 9-7h14q10 0 11 7v3H3Z',
   bag: 'M7 15h26l3 21H4Z',
+  blouse: 'M9 6 16 3l4 8 4-8 7 3 7 9-6 4-2-3v18H10V16l-2 3-6-4Z',
 };
 function Piece({ shape, color, bg }) {
   return (
@@ -89,21 +91,52 @@ function OccasionScreen() {
   );
 }
 
+function AddScreen() {
+  const stages = ['Upload', 'Remove BG', 'Detect color', 'Saving'];
+  const types = ['Tops', 'Bottoms', 'Shoes', 'Outerwear', 'Dress', 'Accessories'];
+  const occasions = ['Casual', 'Formal', 'Date Night', 'Party', 'Sports'];
+  const picked = ['Formal', 'Date Night', 'Party'];
+  return (
+    <>
+      <Header title="Add Clothing" back />
+      <div className="wr-upload">
+        <span className="wr-photo"><Piece shape="blouse" color="#efe6d6" bg="#fff" /><i className="wr-scan" aria-hidden="true" /></span>
+        <span className="wr-detected">Detected: <span style={{ background: '#efe6d6' }} /> Cream</span>
+      </div>
+      <ol className="wr-stages">
+        {stages.map((s, i) => (
+          <li key={s} style={{ '--d': `${i * 700}ms` }}><i>{i + 1}</i>{s}</li>
+        ))}
+      </ol>
+      <p className="wr-label">Clothing type</p>
+      <ul className="wr-tags">{types.map((t) => <li key={t} className={t === 'Tops' ? 'is-on' : ''}>{t}</li>)}</ul>
+      <p className="wr-label">Occasion · select all that apply</p>
+      <ul className="wr-tags">
+        {occasions.map((o) => (
+          <li key={o} className={picked.includes(o) ? 'is-on' : ''} style={{ animationDelay: `${600 + picked.indexOf(o) * 250}ms` }}>{o}</li>
+        ))}
+      </ul>
+      <p className="wr-wear wr-save">Save to wardrobe</p>
+    </>
+  );
+}
+
 function GenerateScreen() {
   const rules = [
-    ['Weather-smart', 'Scored on today’s 31°C, overcast'],
-    ['Preference-aware', 'Your hearted pieces show up more'],
-    ['Occasion-matched', 'Only items tagged “Date”'],
+    ['Weather fit', '40%', 'Suits today’s 31°C, overcast'],
+    ['Preference', '30%', 'Your hearted pieces score higher'],
+    ['Color harmony', '30%', 'Colors that go well together'],
   ];
   return (
     <>
       <Header title="What to wear?" back />
       <p className="wr-chip">For <b>Date night</b></p>
-      <p className="wr-label">Generating outfits…</p>
+      <p className="wr-filter"><Check /> Only items tagged “Date Night”</p>
+      <p className="wr-label">Scoring outfits…</p>
       <ul className="wr-rules">
-        {rules.map(([t, d], i) => (
+        {rules.map(([t, w, d], i) => (
           <li key={t} style={{ animationDelay: `${i * 450}ms` }}>
-            <span className="wr-tick" style={{ animationDelay: `${i * 450 + 300}ms` }}><Check /></span>
+            <span className="wr-weight" style={{ animationDelay: `${i * 450 + 300}ms` }}>{w}</span>
             <div><b>{t}</b><small>{d}</small></div>
           </li>
         ))}
@@ -141,14 +174,15 @@ function CompareScreen({ worn = false }) {
 }
 
 function Screen({ step }) {
-  if (step === 0) return <HomeScreen />;
-  if (step === 1) return <OccasionScreen />;
-  if (step === 2) return <GenerateScreen />;
-  return <CompareScreen worn={step === 4} />;
+  if (step === 0) return <AddScreen />;
+  if (step === 1) return <HomeScreen />;
+  if (step === 2) return <OccasionScreen />;
+  if (step === 3) return <GenerateScreen />;
+  return <CompareScreen worn={step === 5} />;
 }
 
 export default function WearWhatDemo() {
-  const stepper = useStepper(STEPS.length, 3600);
+  const stepper = useStepper(STEPS.length, 3800);
   return (
     <DemoShell title="Getting dressed with WearWhat" steps={STEPS} stepper={stepper}>
       <div className="ww-stage">
