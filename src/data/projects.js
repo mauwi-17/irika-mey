@@ -367,7 +367,7 @@ export const projects = [
       platform: 'Web app',
     },
     // Verified from the live site: single-page HTML/JS app calling Vercel serverless API routes.
-    stack: ['HTML · CSS · JavaScript', 'Vercel serverless API', 'Rule-based similarity matching', '[Database: confirm with team]'],
+    stack: ['HTML · CSS · JavaScript', 'Vercel serverless API', 'Rule-based similarity matching', 'Supabase'],
     context: 'A community lost-and-found system for Barangay Sta. Rita, Olongapo City.',
 
     product:
@@ -478,7 +478,6 @@ export const projects = [
           findings: [
             { title: 'Real users, real tasks.', text: 'Barangay staff and residents used the system themselves: residents filed reports, and staff reviewed records and found matches.' },
             { title: 'Survey after use.', text: 'Right after using it, they answered a survey about how easy and useful the system was.' },
-            { title: '[Key survey result]', text: '[Add 1–2 results from your survey, e.g. how many respondents and how they rated ease of use.]' },
           ],
         },
       ],
@@ -508,7 +507,7 @@ export const projects = [
     ],
 
     impact:
-      'Tugma was tested by the people it is built for: barangay staff and residents of Barangay Sta. Rita used it hands-on and answered a survey about it. [Add your key survey result here.]',
+      'Tugma was tested by the people it is built for: barangay staff and residents of Barangay Sta. Rita used it hands-on and answered a survey about it. Lost items can now be matched with their owners without anyone’s personal details being posted online.',
     learned:
       'Creating Tugma’s design concept and logo taught me that a brand for a public service has to feel trustworthy before it feels stylish. I chose two simple pieces that fit together in calm teal and green, so the idea of “matching” is clear at a glance, even for residents who rarely use apps. Watching the interface come together with the team also showed me how small design choices, like a plain-language privacy notice, build that same trust inside the system.',
     nextSteps: [
