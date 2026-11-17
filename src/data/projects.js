@@ -28,7 +28,7 @@ export const projects = [
       'Our Software Engineering project, also written up as a concept note for the Philippine Startup Challenge XI under team Ctrl Alt Elite (CAE).',
 
     product:
-      'Askademic is a web-based consultation platform. Students browse a live board of faculty availability and request slots in real time, while faculty approve or decline requests without double-booking.',
+      'Askademic is a web-based consultation platform for Gordon College. Students sign in with their school account, check each instructor’s real-time availability in the Faculty Directory, and request a specific date and time slot. Faculty then approve or decline, so every slot belongs to one request.',
     users: [
       { who: 'Students', need: 'need a quick, reliable way to know when an instructor is free and to book time with them.' },
       { who: 'Faculty', need: 'need to share their availability and manage incoming requests in one organized place.' },
@@ -65,25 +65,25 @@ export const projects = [
     ],
 
     process: [
-      { title: 'Post', text: 'Faculty set their availability status.' },
-      { title: 'Browse', text: 'Students view the real-time faculty schedule.' },
-      { title: 'Request', text: 'Students submit a consultation request.' },
-      { title: 'Review', text: 'Faculty approve or decline.' },
-      { title: 'Track', text: 'Both sides monitor the status.' },
-      { title: 'Record', text: 'The finished consultation is recorded.' },
+      { title: 'Sign in', text: 'Gordon College account, student or faculty role.' },
+      { title: 'Find faculty', text: 'Directory with real-time availability and next schedule.' },
+      { title: 'Pick a slot', text: 'Choose a day and time; slots left are shown.' },
+      { title: 'Add details', text: 'Consultation topic and optional notes.' },
+      { title: 'Submit', text: 'Gets a reference number, pending approval.' },
+      { title: 'Faculty review', text: 'Instructor approves or declines; tracked in My Appointments.' },
     ],
 
     features: [
-      { group: 'Availability', items: ['Real-time status (Available / Busy)', 'Live schedule board'] },
-      { group: 'Request', items: ['Instant submission', 'Approve / decline workflow'] },
-      { group: 'Tracking', items: ['Status updates: Pending → Approved → Completed', 'Notifications'] },
-      { group: 'Access', items: ['Institution-verified login', 'Role-based access (faculty / student)'] },
+      { group: 'Availability', items: ['Real-time availability per instructor', 'Next open schedule shown in the directory', 'Booking disabled when no schedule is set'] },
+      { group: 'Booking', items: ['Date picker with slots left per day', 'No-hours and blocked days can’t be picked', 'Topic + optional notes'] },
+      { group: 'Tracking', items: ['Reference number for every request', 'Pending until faculty approval', 'My Appointments page and notifications'] },
+      { group: 'Access', items: ['Gordon College account sign-in', 'Role-based access (student / faculty)'] },
     ],
 
     accessibility: [
-      'Statuses are never shown by color alone. Every state has a text label and an icon, so it still reads clearly for color-blind users.',
-      'High-contrast text and large, clear tap targets on the booking flow.',
-      '[Add another accessibility decision your team made, e.g. keyboard navigation or readable font sizes.]',
+      'Availability and slot status are written in words (“Available”, “3 left”, “No hours”, “Blocked”), not shown by color alone.',
+      'When an instructor has no schedule, the Book button is greyed out and the card says “No schedule set”, so students know why they can’t book.',
+      'Form fields have visible labels with icons, and the password field has a show/hide toggle to reduce typing mistakes.',
     ],
 
     learned:

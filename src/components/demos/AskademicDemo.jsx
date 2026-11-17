@@ -1,144 +1,162 @@
-// Askademic in motion: a mini recreation of the Post -> Browse -> Request -> Review -> Track flow.
-// Uses Askademic's own blue palette so it reads as "their app" inside the pink portfolio.
+// Askademic in motion, recreated from the real system's student screens:
+// sign in -> faculty directory (live availability) -> pick a date & time slot
+// -> add topic & notes -> request submitted (pending faculty approval).
+// Uses Askademic's own navy + light palette. All names, emails, and reference
+// numbers are SAMPLE data, not real accounts.
 import DemoShell from './DemoShell.jsx';
 import { useStepper } from '../../hooks/useStepper';
-import { Check, Clock, XMark } from '../Icons.jsx';
+import { Check, Clock, Lock } from '../Icons.jsx';
 
 const STEPS = [
-  { label: 'Post', caption: 'Faculty set their availability, and the board updates for every student in real time.' },
-  { label: 'Browse', caption: 'Students check the live schedule board to see which slots are actually open.' },
-  { label: 'Request', caption: 'A student requests a slot in one tap. No chats, emails, or walk-ins.' },
-  { label: 'Review', caption: 'The instructor approves or declines. Approved slots lock, so there is no double-booking.' },
-  { label: 'Track', caption: 'Both sides follow the status from Pending to Completed, and the consultation is recorded.' },
+  { label: 'Sign in', caption: 'Students and faculty sign in with their Gordon College account. The badge shows which role is signing in.' },
+  { label: 'Find faculty', caption: 'The Faculty Directory shows each instructor’s real-time availability and their next open schedule. You can only book an instructor who has set a schedule.' },
+  { label: 'Pick a slot', caption: 'Choose a day and time slot. Each day shows how many slots are left, and days with no hours or blocked dates can’t be picked.' },
+  { label: 'Add details', caption: 'Pick a consultation topic and add optional notes, then submit the request.' },
+  { label: 'Submitted', caption: 'The request gets a reference number and stays pending until the instructor approves it. Students track it in My Appointments.' },
 ];
 
 const FACULTY = [
-  { id: 'santos', name: 'Prof. Santos', dept: 'Computer Science', initials: 'PS' },
-  { id: 'reyes', name: 'Prof. Reyes', dept: 'Information Tech.', initials: 'PR' },
-  { id: 'cruz', name: 'Prof. Cruz', dept: 'Mathematics', initials: 'PC' },
+  { initials: 'AS', name: 'Prof. A. Santos', next: null },
+  { initials: 'RR', name: 'Prof. R. Reyes', next: 'Wed, Nov 18 · 8 AM' },
+  { initials: 'CC', name: 'Ms. C. Cruz', next: 'Sat, Nov 21 · 8 AM', pick: true },
 ];
 
-// Status chips always pair an icon + text with the color (never color alone).
-const STATUS = {
-  available: { text: 'Available', Icon: Check },
-  busy: { text: 'Busy', Icon: XMark },
-  pending: { text: 'Pending', Icon: Clock },
-  approved: { text: 'Approved', Icon: Check },
-  completed: { text: 'Completed', Icon: Check },
-};
-function Status({ kind, className = '' }) {
-  const { text, Icon } = STATUS[kind];
-  return <span className={`ak-status ak-status--${kind} ${className}`}><Icon />{text}</span>;
+const DAYS = [
+  { d: 'Today', n: 17, s: 'No hours' },
+  { d: 'Wed', n: 18, s: 'No hours' },
+  { d: 'Thu', n: 19, s: 'No hours' },
+  { d: 'Fri', n: 20, s: 'No hours' },
+  { d: 'Sat', n: 21, s: '3 left', pick: true },
+  { d: 'Sun', n: 22, s: 'No hours' },
+  { d: 'Mon', n: 23, s: 'Blocked', off: true },
+];
+
+function Logo({ size = '' }) {
+  return <span className={`ak-logo ${size}`} aria-hidden="true"><i /><i /></span>;
 }
 
-const SLOTS = [
-  { time: '9:00 AM', taken: true },
-  { time: '10:30 AM', taken: false, pick: true },
-  { time: '1:00 PM', taken: false },
-  { time: '3:30 PM', taken: true },
-];
-
-function Panel({ step }) {
-  if (step === 0) {
-    return (
-      <div className="ak-panel">
-        <p className="ak-panel__label">Faculty view · My status</p>
-        <div className="ak-toggle-row">
-          <span>Prof. Santos</span>
-          <span className="ak-switch is-on" role="img" aria-label="Status switched to available"><i /></span>
-        </div>
-        <Status kind="available" className="ak-pop" />
-        <p className="ak-hint">Visible to students now</p>
-      </div>
-    );
-  }
-  if (step === 1) {
-    return (
-      <div className="ak-panel">
-        <p className="ak-panel__label">Prof. Santos · Today</p>
-        <ul className="ak-slots">
-          {SLOTS.map((s) => (
-            <li key={s.time} className={`${s.taken ? 'is-taken' : ''} ${s.pick ? 'is-pick' : ''}`}>
-              {s.time}<small>{s.taken ? 'Taken' : 'Open'}</small>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-  if (step === 2) {
-    return (
-      <div className="ak-panel">
-        <p className="ak-panel__label">Student view · New request</p>
-        <div className="ak-request ak-slide">
-          <p><b>Prof. Santos</b> · 10:30 AM</p>
-          <p className="ak-hint">Topic: Thesis chapter 2 feedback</p>
-          <Status kind="pending" />
-        </div>
-        <span className="ak-btn ak-btn--done"><Check /> Request sent</span>
-      </div>
-    );
-  }
-  if (step === 3) {
-    return (
-      <div className="ak-panel">
-        <p className="ak-panel__label">Faculty view · Requests</p>
-        <div className="ak-request">
-          <p><b>J. Dela Cruz</b> · 10:30 AM</p>
-          <p className="ak-hint">Thesis chapter 2 feedback</p>
-          <div className="ak-actions">
-            <span className="ak-btn ak-btn--approve ak-press"><Check /> Approve</span>
-            <span className="ak-btn ak-btn--ghost">Decline</span>
-          </div>
-        </div>
-        <Status kind="approved" className="ak-pop" />
-      </div>
-    );
-  }
+function SignIn() {
   return (
-    <div className="ak-panel">
-      <p className="ak-panel__label">Consultation status</p>
-      <ol className="ak-timeline">
-        {['pending', 'approved', 'completed'].map((k, i) => (
-          <li key={k} style={{ animationDelay: `${i * 260}ms` }}><Status kind={k} /></li>
-        ))}
-      </ol>
-      <p className="ak-recorded ak-pop"><Check /> Consultation recorded</p>
+    <div className="ak-center">
+      <div className="ak-login">
+        <Logo size="ak-logo--lg" />
+        <p className="ak-h1">Askademic</p>
+        <p className="ak-muted">Gordon College · Olongapo City</p>
+        <span className="ak-role">🎓 Student account</span>
+        <label className="ak-field"><span>Student / Faculty ID or Email</span><em>student@gordoncollege.edu.ph</em></label>
+        <label className="ak-field"><span>Password</span><em className="ak-dots"><Lock /> ••••••••••</em></label>
+        <span className="ak-btn ak-btn--wide ak-press">Sign In</span>
+      </div>
     </div>
   );
 }
 
-export default function AskademicDemo() {
-  const stepper = useStepper(STEPS.length);
-  const { step } = stepper;
+function AppShell({ children, dim = false }) {
+  return (
+    <div className="ak-app">
+      <aside className="ak-side" aria-hidden="true"><Logo /><i /><i /><i className="is-on" /><i /><i /></aside>
+      <div className="ak-main">
+        <div className="ak-head"><div><p className="ak-h2">Faculty Directory</p><p className="ak-muted">Tuesday, November 17</p></div><span className="ak-bell" aria-hidden="true">🔔<b>3</b></span></div>
+        <div className={`ak-content ${dim ? 'is-dim' : ''}`}>
+          <p className="ak-muted">View real-time availability and book a consultation slot</p>
+          <p className="ak-search">Search instructor…</p>
+          <ul className="ak-list">
+            {FACULTY.map((f, i) => (
+              <li key={f.name} className={f.pick ? 'is-pick' : ''} style={{ animationDelay: `${i * 140}ms` }}>
+                <span className="ak-av"><span className="ak-av__c">{f.initials}</span><small className="ak-av__ok"><i /> Available</small></span>
+                <div>
+                  <b>{f.name}</b><small>CCS</small>
+                  <small className="ak-next"><Clock /> {f.next ? `Next: ${f.next}` : 'No schedule set'}</small>
+                </div>
+                <span className={`ak-btn ak-btn--sm ${f.next ? '' : 'is-disabled'} ${f.pick ? 'ak-pulse' : ''}`}>Book</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        {children}
+      </div>
+    </div>
+  );
+}
 
+function Modal({ details = false }) {
+  return (
+    <div className="ak-modal ak-slide">
+      <p className="ak-modal__bar">Request appointment with <span>Ms. C. Cruz</span></p>
+      <div className="ak-modal__body">
+        {!details ? (
+          <>
+            <p className="ak-label">Select date</p>
+            <ul className="ak-days">
+              {DAYS.map((x) => (
+                <li key={x.n} className={`${x.pick ? 'is-pick' : ''} ${x.off ? 'is-off' : ''}`}>
+                  <small>{x.d}</small><b>{x.n}</b><small>{x.s}</small>
+                </li>
+              ))}
+            </ul>
+            <p className="ak-date">Saturday, Nov 21, 2026</p>
+            <p className="ak-ok">3 slots remaining for Saturday</p>
+            <p className="ak-label">Select time slot</p>
+            <span className="ak-slot ak-pop">8:00 AM – 9:00 AM</span>
+          </>
+        ) : (
+          <>
+            <p className="ak-picked"><Check /> Sat, Nov 21 · 8:00 – 9:00 AM</p>
+            <p className="ak-label">Consultation topic</p>
+            <p className="ak-select ak-pop">Subject concern ▾</p>
+            <p className="ak-label">Optional messages / notes</p>
+            <p className="ak-notes ak-type">Clarify the chapter 3 requirements</p>
+            <div className="ak-actions"><span className="ak-btn ak-btn--wide ak-press">Submit Request</span><span className="ak-btn ak-btn--ghost">Cancel</span></div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function Submitted() {
+  const rows = [
+    ['Faculty', 'Ms. C. Cruz'],
+    ['Day', 'Saturday'],
+    ['Time', '8:00 AM – 9:00 AM'],
+    ['Room', 'Room TBA'],
+    ['Topic', 'Subject concern'],
+  ];
+  return (
+    <div className="ak-modal ak-done ak-slide">
+      <span className="ak-check ak-pop"><Check /></span>
+      <p className="ak-h2">Request Submitted!</p>
+      <p className="ak-muted">Your request is now pending faculty approval.</p>
+      <dl className="ak-receipt">
+        <div className="ak-ref"><dt>Reference no.</dt><dd>REQ-7F3A21C9</dd></div>
+        {rows.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
+      </dl>
+      <span className="ak-btn ak-btn--wide">View in My Appointments →</span>
+    </div>
+  );
+}
+
+function Screen({ step }) {
+  if (step === 0) return <SignIn />;
+  if (step === 1) return <AppShell />;
+  return (
+    <AppShell dim>
+      <div className="ak-overlay">
+        {step === 2 && <Modal />}
+        {step === 3 && <Modal details />}
+        {step === 4 && <Submitted />}
+      </div>
+    </AppShell>
+  );
+}
+
+export default function AskademicDemo() {
+  const stepper = useStepper(STEPS.length, 3800);
   return (
     <DemoShell title="Booking a consultation on Askademic" steps={STEPS} stepper={stepper}>
       <div className="mock-window ak">
-        <div className="mock-window__bar"><i /><i /><i /><span>askademic · faculty board</span></div>
-        <div className="ak__body">
-          <div className="ak-board">
-            <p className="ak-panel__label">Live faculty board</p>
-            <ul>
-              {FACULTY.map((f) => {
-                const kind = f.id === 'reyes' ? 'busy' : 'available';
-                const highlight = f.id === 'santos' && step <= 1;
-                return (
-                  <li key={f.id} className={`ak-row ${highlight ? 'is-highlight' : ''}`}>
-                    <span className="ak-avatar" aria-hidden="true">{f.initials}</span>
-                    <span className="ak-row__name">{f.name}<small>{f.dept}</small></span>
-                    {/* Santos flips Busy -> Available on the Post step */}
-                    <Status kind={f.id === 'santos' && step === 0 ? 'available' : kind}
-                      className={f.id === 'santos' && step === 0 ? 'ak-pop' : ''} />
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-          <div className="ak__side" key={step}>
-            <Panel step={step} />
-          </div>
-        </div>
+        <div className="mock-window__bar"><i /><i /><i /><span>askademic · gordon college</span></div>
+        <div className="ak__body" key={stepper.step}><Screen step={stepper.step} /></div>
       </div>
     </DemoShell>
   );
