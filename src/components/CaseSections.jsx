@@ -15,7 +15,9 @@ export function Personas({ personas }) {
       {personas.map((p) => (
         <article key={p.name} className={`cs-card persona ${single ? 'persona--wide' : ''}`}>
           <header className="persona__head">
-            <span className="persona__avatar" aria-hidden="true">{p.name[0]}</span>
+            {p.avatar
+              ? <img className="persona__avatar" src={p.avatar} alt="" width="52" height="52" />
+              : <span className="persona__avatar persona__avatar--initial" aria-hidden="true">{p.name[0]}</span>}
             <div>
               <h3>{p.name}</h3>
               <p className="persona__meta">{[p.age, p.occupation, p.hometown].filter(Boolean).join(' · ')}</p>

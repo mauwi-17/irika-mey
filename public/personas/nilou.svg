@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="Profile picture placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb3d0"/>
+      <stop offset="1" stop-color="#b06bd6"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" fill="url(#bg)"/>
+  <path d="M30 120c0-24 14-36 30-36s30 12 30 36z" fill="#3b2a4a"/>
+  <path d="M46 84h28v12c-4 4-24 4-28 0z" fill="#e3b596"/>
+  <ellipse cx="60" cy="54" rx="22" ry="25" fill="#f0c4a4"/>
+  <path d="M36 54c-4-26 10-38 25-38s30 12 24 38c-2 10-4 22-8 30-4-10-6-18-8-22-10 4-24 4-34 0-2 6-4 14-6 22-4-8-6-18-6-30z" fill="#2a1f35"/>
+  <path d="M38 52c4-16 14-22 22-22s18 6 22 22c-8-4-16-6-22-6s-14 2-22 6z" fill="#2a1f35"/>
+</svg>

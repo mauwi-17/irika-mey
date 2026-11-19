@@ -72,6 +72,7 @@ export const projects = [
     personas: [
       {
         name: 'Nilou',
+        avatar: '/personas/nilou.svg',
         age: 23,
         occupation: 'Graduating college student',
         hometown: 'Olongapo City',
@@ -83,6 +84,7 @@ export const projects = [
       },
       {
         name: 'Albedo Santos',
+        avatar: '/personas/albedo.svg',
         age: 43,
         occupation: 'Full-time college instructor',
         hometown: 'Bataan',
@@ -251,6 +253,7 @@ export const projects = [
     personas: [
       {
         name: 'Jocelyn Docena',
+        avatar: '/personas/jocelyn.svg',
         occupation: 'Busy professional · Junior Marketing Associate',
         hometown: 'Olongapo City',
         quote: 'That way I won’t second-guess if the outfits I’ll be wearing looks good.',
@@ -363,23 +366,23 @@ export const projects = [
     meta: {
       role: 'Design Concept & Logo',
       team: 'Team project',
-      duration: 'Sep 2026 – Present (in progress)',
+      duration: 'August 2026 – November 2026',
       platform: 'Web app',
     },
     // Verified from the live site: single-page HTML/JS app calling Vercel serverless API routes.
-    stack: ['HTML · CSS · JavaScript', 'Vercel serverless API', 'Rule-based similarity matching', 'Supabase'],
+    stack: ['HTML · CSS · JavaScript', 'Node.js on Vercel', 'Supabase', 'Rule-based word matching'],
     context: 'A community lost-and-found system for Barangay Sta. Rita, Olongapo City.',
 
     product:
-      'Tugma is a community lost-and-found system. Residents report what they lost or found, and barangay staff compare each report against everything on file using a rule-based scoring system, then contact the owner. Names and numbers are only visible to staff.',
+      'Tugma is a web-based lost-and-found system for Barangay Sta. Rita in Olongapo City. Residents report a lost or found item through a form. The system compares every report with the others and ranks likely matches for barangay staff, who check them and confirm the right one.',
     users: [
-      { who: 'Residents', need: 'need a quick, safe way to report a lost or found item without posting their details publicly.' },
-      { who: 'Barangay staff', need: 'need one place to review reports, find likely matches, and verify claims.' },
+      { who: 'Barangay staff', need: 'need to check reports and confirm the right match, without relying on memory or flipping through the logbook.' },
+      { who: 'Residents', need: 'who lost or found something need a simple form to report it and hear back when there is a likely match.' },
     ],
     problem:
-      'Found items, especially government IDs, are often posted on Facebook to find the owner, exposing personal data without consent (RA 10173). Manual records also make reporting and searching slow.',
+      'Reports sit in a logbook or a chat thread, and matching is done by eye. A staff member has to remember what was reported weeks ago and hope the descriptions line up.',
     goal:
-      'Match lost and found items with a lightweight, transparent approach: no AI models, no complex infrastructure, and no public posting of personal information.',
+      'Keep every report in one place and rank possible matches by score, so staff check the best candidates first and can see why they were suggested.',
 
     myRole: {
       title: 'Design Concept & Logo',
@@ -391,113 +394,101 @@ export const projects = [
     },
 
     research:
-      'We studied how lost-and-found works in Barangay Sta. Rita today and gathered input from both sides who would use the system: barangay staff and residents. After our adviser approved the system, they tried it hands-on and answered a survey about it.',
+      'We started from the assumption that matching lost and found items was slow. To check it, we surveyed 10 barangay staff and 30 residents. The survey asked how reports are recorded, how matches are found, and what each group would want from an online form.',
+    researchStats: [
+      { value: '9 of 10', label: 'staff record reports in a logbook; one uses Facebook or messaging apps' },
+      { value: '6 of 10', label: 'say a possible match takes a day or more; two say matching is not done' },
+      { value: '10 of 10', label: 'rate describing an item in words as a 4 or 5 problem' },
+      { value: '7 of 16', label: 'residents who lost or found an item had no match yet' },
+    ],
 
     painPoints: [
       {
-        title: 'Personal data exposed online',
-        text: 'Found items, especially government IDs, are often posted on Facebook to find the owner, exposing personal information without consent (RA 10173). In Tugma, names and numbers are visible to barangay staff only and never appear in match results.',
+        title: 'Reports live in different places',
+        text: 'Nine of 10 staff record reports in a logbook, and one uses Facebook or messaging apps. Staff agreed that matches get missed because reports are in different places or formats. Tugma keeps every report in one list.',
       },
       {
-        title: 'Slow, manual records',
-        text: 'Reporting and searching through manual records takes time and effort, so items stay unclaimed. A Records page with live counts, search, and filters lets staff see every open report at once.',
+        title: 'Matching is slow, or not done',
+        text: 'Six of 10 staff said finding a possible match takes a day or more, and two said matching is not done. Tugma compares a new report with every other report straight away.',
       },
       {
-        title: 'Same item, different words',
-        text: 'People describe things differently: “cellphone” or “phone”, English or Taglish (“Samsung na may clear case”). Matching scores category, color, description, location, and date instead of looking for the exact same words.',
+        title: 'Words are hard to compare',
+        text: 'All 10 staff rated this 4 or 5: describing an item in words makes it hard to tell whether two reports are about the same thing. Tugma scores each description word by word instead of asking a person to judge it by eye.',
       },
       {
-        title: 'Proving real ownership',
-        text: 'Before returning an item, staff must be sure the person is the real owner. “Mark as claimed” records who claimed it and what proof they showed, then locks both reports.',
+        title: 'Many residents are left waiting',
+        text: 'Of the 16 residents who had lost or found an item, seven had no match yet. Staff get a ranked shortlist, so the likeliest match is the first one they check.',
       },
     ],
 
     personas: [
       {
-        name: 'Lea',
-        age: 20,
-        occupation: 'College student',
+        name: 'Maribel Santos',
+        age: 49,
+        occupation: 'Front desk staff',
         hometown: 'Barangay Sta. Rita',
-        quote: 'I just want my ID back, not posted for everyone to see.',
+        avatar: '/personas/maribel.svg',
+        quote: 'I remember a wallet came in, but which page of the logbook was it?',
         statement:
-          'Lea is a resident who lost her wallet with her school ID at the covered court and needs a safe way to get it back without her details being posted online.',
-        goal: 'Report the lost item quickly and get it back.',
-        frustration: 'She doesn’t know where to report, and worries her ID photo will end up on Facebook.',
-      },
-      {
-        name: 'Mr. Dante',
-        age: 47,
-        occupation: 'Barangay staff',
-        hometown: 'Barangay Sta. Rita',
-        quote: 'I know it’s here somewhere in the logbook.',
-        statement:
-          'Mr. Dante is a barangay staff member who handles lost-and-found and needs to match items with their owners without digging through paper records.',
-        goal: 'Match and return items fast while following data privacy rules.',
-        frustration: 'Manual records are hard to search, and it’s hard to tell if a claimant is the real owner.',
+          'Maribel records lost and found reports in the barangay hall and is expected to reunite items with their owners, but matching depends on her memory and on flipping through the logbook.',
+        goal: 'Find the right owner quickly and be sure the match is correct before calling.',
+        frustration: 'Reports are spread across a logbook and chat messages, and matching by eye takes a day or more.',
+        behavior:
+          'Between certificates, complaints and walk-ins, she writes each lost or found item in the logbook. When a resident asks about a missing item, she reads back through earlier pages and guesses which report might fit. Some matches are found late, and some are never found.',
       },
     ],
 
     journeys: [
       {
         tab: 'Resident: report a lost item',
-        persona: 'Lea, a resident who lost her wallet',
-        goal: 'Get her wallet and ID back safely.',
+        persona: 'Rosalie, a resident who lost a bag',
+        goal: 'Report it once and hear back when there is a likely match.',
         steps: [
-          { title: 'Realize the item is lost', feeling: 'Worried', mood: 1.8, opportunity: 'One clear place to report, instead of posting online.' },
-          { title: 'Report the item', feeling: 'Unsure', mood: 2.8, opportunity: 'Category cards, helper hints, and a privacy notice before submitting.' },
-          { title: 'Wait for a match', feeling: 'Anxious', mood: 2.3, opportunity: 'Staff compare it against everything on file and contact her.' },
-          { title: 'Claim the item', feeling: 'Relieved', mood: 4.6, opportunity: 'Staff verify ownership and note what proof was shown.' },
-        ],
-      },
-      {
-        tab: 'Staff: match and return',
-        persona: 'Mr. Dante, barangay staff',
-        goal: 'Return items to their real owners without exposing anyone’s data.',
-        steps: [
-          { title: 'Open the records', feeling: 'Organized', mood: 4, opportunity: 'Live counts of lost, found, matched, and claimed items.' },
-          { title: 'Review new reports', feeling: 'Busy', mood: 2.8, opportunity: 'Search and filters; test data kept separate.' },
-          { title: 'Find matches', feeling: 'Hopeful', mood: 3.8, opportunity: 'Scores out of 100; only 50% and up shown, with a confidence label.' },
-          { title: 'Confirm the match', feeling: 'Confident', mood: 4.2, opportunity: 'Contact details visible to staff only.' },
-          { title: 'Mark as claimed', feeling: 'Relieved', mood: 4.6, opportunity: 'Record the claimant and proof; both reports are locked.' },
+          { title: 'Go to the barangay or open the form', feeling: 'Worried', mood: 2, opportunity: 'A short form for lost and found, usable on a phone.' },
+          { title: 'Describe the item', feeling: 'Unsure', mood: 2.5, opportunity: 'Pick a category, then describe it in her own words, in English or Filipino.' },
+          { title: 'Wait for news', feeling: 'Anxious', mood: 2, opportunity: 'Every report is compared with the others right away, so she does not wait for a manual check.' },
+          { title: 'Get contacted by staff', feeling: 'Hopeful', mood: 4, opportunity: 'Staff call only after they have checked a likely match.' },
+          { title: 'Claim the item', feeling: 'Relieved', mood: 4.5, opportunity: 'The report is marked as claimed, so it leaves the open list.' },
         ],
       },
     ],
 
     usability: {
       intro:
-        'Testing happened in two stages: our adviser reviewed and approved the system, then barangay staff and residents used it hands-on and answered a survey about it.',
+        'We used the Technology Acceptance Model on a 5-point scale. Barangay staff and residents answered a technology acceptance survey about the system.',
       rounds: [
         {
-          title: 'Stage 1 · Adviser review',
+          title: 'Barangay staff',
           findings: [
-            { title: 'System approved for testing.', text: 'Our adviser reviewed the system’s flow and design and approved it before we ran the survey with real users.' },
+            { title: 'Usefulness: 4.64', text: 'Staff rated how useful the system is.' },
+            { title: 'Ease of use: 4.40', text: 'Staff rated how easy the system is to use.' },
+            { title: 'Intention to use: 4.75', text: 'Staff rated how likely they are to keep using it.' },
           ],
         },
         {
-          title: 'Stage 2 · Hands-on survey',
+          title: 'Residents',
           findings: [
-            { title: 'Real users, real tasks.', text: 'Barangay staff and residents used the system themselves: residents filed reports, and staff reviewed records and found matches.' },
-            { title: 'Survey after use.', text: 'Right after using it, they answered a survey about how easy and useful the system was.' },
+            { title: 'Overall: 4.23', text: 'Residents rated the system overall.' },
+            { title: 'Ease of use: 3.96', text: 'The lowest score, so the resident form is where we would improve first.' },
           ],
         },
       ],
     },
 
     process: [
-      { title: 'Report', text: 'Residents choose “I lost something” or “I found something”.' },
-      { title: 'Describe', text: 'Item type, color, description, place, and date.' },
-      { title: 'Review', text: 'Staff sign in to see all open reports.' },
-      { title: 'Find matches', text: 'Each candidate is scored out of 100.' },
-      { title: 'Confirm', text: 'Staff confirm the match and contact the owner.' },
-      { title: 'Claim', text: 'Owner verified, item marked claimed, both reports locked.' },
+      { title: 'Research', text: 'Surveyed 10 barangay staff and 30 residents on how reports are recorded and matched.' },
+      { title: 'Define', text: 'Grouped the survey answers into four pain points, wrote the goal, and turned the gaps into “How might we” questions.' },
+      { title: 'Design', text: 'Compared two options for each open question and picked one: word-by-word comparison with typo tolerance, a synonym list linking English and Filipino, a 0 to 100 score in High, Medium and Low tiers, and rules staff can read.' },
+      { title: 'Build', text: 'Plain HTML, CSS and vanilla JavaScript for the forms and staff screens, with a small Node.js server on Vercel doing the matching and Supabase storing the reports. The database key stays on the server, so the browser never holds it.' },
+      { title: 'Evaluate', text: '50 lost and 50 found simulated reports, with 35 true pairs. Tuned on 40 reports and tested on 60, comparing V1 and V2 with a Wilcoxon signed-rank test. Against all 50 found reports, precision falls to about 66%, so staff confirmation stays essential.' },
     ],
 
     features: [
-      { group: 'Guided reporting', items: ['Separate lost / found paths', 'Five item categories with examples', 'Helper text on every field'] },
-      { group: 'Transparent scoring', items: ['Category 30 · Color 20 · Description 30 · Location 10 · Date 10', 'Only candidates at 50% or higher are shown, with a confidence label'] },
-      { group: 'Staff records', items: ['Live counts: lost, found, matched, claimed, archived', 'Filter, search, and status tracking per report'] },
-      { group: 'Verified claims', items: ['Staff record who claimed the item, with an optional note (e.g. showed a school ID)', 'Once claimed, both reports are locked and cannot be changed or deleted'] },
-      { group: 'Privacy by design', items: ['Names and numbers visible to staff only (RA 10173)', 'Contact details never appear in match results', 'Test mode keeps practice reports apart from real ones'] },
+      { group: 'Guided reporting', items: ['A short form for lost and found, usable on a phone', 'Pick a category, then describe the item in your own words, in English or Filipino'] },
+      { group: 'Transparent scoring', items: ['Category 30 · Description 30 · Color 20 · Location 10 · Date 10', 'Tiers: High from 85, Medium 70 to 84, Low below 70'] },
+      { group: 'Smarter descriptions', items: ['Word by word, and a small typo still counts as the same word', 'English and Filipino words linked, so “pitaka” and “wallet” match', 'Similar colors grouped (“navy” counts as “blue”)', 'A found date cannot come before the lost date'] },
+      { group: 'Staff area', items: ['Every new report compared with all others right away', 'Sign-in required; the server handles all matching and database access'] },
+      { group: 'Privacy by design', items: ['Names and numbers visible only to signed-in staff, through the server', 'The database key is kept on the server, never in the browser'] },
     ],
 
     accessibility: [
@@ -507,12 +498,12 @@ export const projects = [
     ],
 
     impact:
-      'Tugma was tested by the people it is built for: barangay staff and residents of Barangay Sta. Rita used it hands-on and answered a survey about it. Lost items can now be matched with their owners without anyone’s personal details being posted online.',
+      'On the test set, the improved matching raised precision from 51% to 79% and F1 from 66% to 84%, without losing recall. Staff rated the system 4.64 for usefulness.',
     learned:
-      'Creating Tugma’s design concept and logo taught me that a brand for a public service has to feel trustworthy before it feels stylish. I chose two simple pieces that fit together in calm teal and green, so the idea of “matching” is clear at a glance, even for residents who rarely use apps. Watching the interface come together with the team also showed me how small design choices, like a plain-language privacy notice, build that same trust inside the system.',
+      'A baseline is what makes an improvement believable. Building the simple version first showed that the word-by-word rules were better, rather than only claiming it. We also reported the weaker result next to the good one: the larger pool showed where the system still makes mistakes, which is more useful than a single clean number.',
     nextSteps: [
-      'SMS alerts: text the owner as soon as staff confirm a match, so residents don’t have to keep checking.',
-      'Grow beyond one barangay: share the same privacy-first matching with nearby barangays in Olongapo City.',
+      'Test with real reports: the study used simulated reports, so messy descriptions and missing synonyms are still unknown.',
+      'Add photos and tighten security: a photo would help staff confirm a match, and database access rules and security tests come first.',
     ],
   },
 ];

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="Profile picture placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8fe3cf"/>
+      <stop offset="1" stop-color="#1f7a6b"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" fill="url(#bg)"/>
+  <path d="M26 120c0-24 15-36 34-36s34 12 34 36z" fill="#e7f0ff"/>
+  <path d="M48 82h24v12c-4 4-20 4-24 0z" fill="#9c6a4c"/>
+  <ellipse cx="60" cy="54" rx="21" ry="24" fill="#a46f4f"/>
+  <path d="M38 52c-4-22 6-34 22-34s26 12 22 34c-2 4-4 8-6 12-4-6-8-10-16-12-8 2-12 6-16 12-2-4-4-8-6-12z" fill="#2b1d17"/>
+  <path d="M40 48c-2 8-2 14 0 20M80 48c2 8 2 14 0 20" stroke="#2b1d17" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M50 92l10 10 10-10" stroke="#ffffff" stroke-width="2" fill="none" opacity="0.7"/>
+</svg>
